@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { LuciButton } from '../core/LuciButton';
@@ -8,8 +7,19 @@ import LuciTypography from '../styles/Typography';
 import { Arduino } from '../../model/core/Arudino';
 import { ApiController } from '../../state/ApiController';
 import StateManager from '../../state/publishers/StateManager';
+import { RootStackParamList } from './CommandStack';
+import { StackNavigationProp } from '@react-navigation/stack';
 
-export const ArudinosScreen: React.FC = () => {
+type ArduinosScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'Arduinos'
+>;
+
+interface Props {
+  navigation: ArduinosScreenNavigationProp;
+};
+
+export const ArudinosScreen: React.FC<Props> = ({ navigation }) => {
 
   // this will update state on completion
   useEffect(() => {
@@ -31,23 +41,22 @@ export const ArudinosScreen: React.FC = () => {
           {
             connectedArduinos.map(arduino => {
               return (
-                // TODO: navigate to commands
                 <LuciCard 
-                onPress={() => null} 
+                onPress={() => navigation.navigate('Add Command', { arduino: arduino })} 
                 style={{ 
                   height: 60, 
                   alignItems: 'center',
                   justifyContent: 'center' 
                 }}
                 >
-                  <Text style={[LuciTypography.cardTitle.getStylesheet(), { color: LuciColors.textDark.getColor() }]}> Arduino #{ arduino.uid } </Text>
+                  <Text style={[ LuciTypography.cardTitle.getStylesheet(), { color: LuciColors.textDark.getColor() }]}> Arduino #{ arduino.uid } </Text>
                 </LuciCard>
               )
             })
           }
 
           {/* hacky way of making space for button */}
-          <View style={{height: 65}}/>
+          <View style={{height: 110}}/>
         </ScrollView>
 
         <LuciButton text={'Refresh'} onPress={() => ApiController.instance.getArduinos()} style={styles.button}/>

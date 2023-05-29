@@ -1,4 +1,5 @@
 import { Arduino } from "../../model/core/Arudino";
+import { Command } from "../../model/core/Command";
 import LuciPublisher from "./impl/LeafPublisher";
 import LuciValuePublisher from "./impl/LeafValuePublisher"
 
@@ -33,6 +34,8 @@ import LuciValuePublisher from "./impl/LeafValuePublisher"
 class StateManager {
 
     public static readonly arduinos = new LuciValuePublisher<Arduino[]>([]);
+
+    public static readonly commands = new LuciValuePublisher<Command[]>([]);
 
     public static readonly workersFetched = new LuciPublisher();
 
