@@ -12,7 +12,6 @@ export class ApiController {
         fetch(this.rootUrl + "/arduinos")
         .then(res => res.json())
         .then(json => {
-            console.log(json)
             const arduinos: Arduino[] = json.arduinos;
             StateManager.arduinos.publish(arduinos)
         })

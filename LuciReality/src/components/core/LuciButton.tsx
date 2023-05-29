@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
         backgroundColor: LuciColors.accent.getColor(),
         borderRadius: 10,
         width: '80%',
-        height: '5%',
-        justifyContent: 'center'
+        height: 60,
+        justifyContent: 'center',
     }
 })
