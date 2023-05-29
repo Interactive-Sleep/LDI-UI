@@ -3,8 +3,6 @@ import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { LuciButton } from '../core/LuciButton';
 import { LuciCard } from '../core/LuciCard';
 import LuciColors from '../styles/LuciColors';
-import LuciTypography from '../styles/Typography';
-import { Arduino } from '../../model/core/Arudino';
 import { ApiController } from '../../state/ApiController';
 import StateManager from '../../state/publishers/StateManager';
 import { RootStackParamList } from './CommandStack';
@@ -33,9 +31,10 @@ export const AddCommandScreen: React.FC<Props> = ({ route }) => {
         <SafeAreaView style={styles.container}>
             <ScrollView style={styles.scrollview}>
                 {
-                    commands.map(command => {
+                    commands.map((command, i) => {
                         return (
                             <LuciCard 
+                                key={i}
                                 onPress={() => null} 
                                 style={{ 
                                     height: 60, 
@@ -43,7 +42,7 @@ export const AddCommandScreen: React.FC<Props> = ({ route }) => {
                                     justifyContent: 'center' 
                                 }}
                             >
-                                <Text style={[ LuciTypography.cardTitle.getStylesheet(), { color: LuciColors.textDark.getColor() }]}> {command.name} </Text>
+                                <Text style={styles.text}> {command.name} </Text>
                             </LuciCard>
                         )
                     })
@@ -56,6 +55,7 @@ export const AddCommandScreen: React.FC<Props> = ({ route }) => {
             <LuciButton text={'Add command'} onPress={() => {
                     ApiController.instance.scheduleCommandForArduino(route.params.arduino, () => null);
                     ApiController.instance.getCommandsForArduino(route.params.arduino);
+                    
                 }} 
                 style={styles.button}
             />
@@ -77,6 +77,11 @@ const styles = StyleSheet.create({
     button: {
       position: 'absolute',
       bottom: 60,
+    },
+    text: {
+        color: LuciColors.textDark.getColor(),
+        fontWeight: 'bold',
+        fontSize: 20
     }
   });
   

@@ -1,7 +1,6 @@
 import React from "react";
 import { TouchableOpacity, StyleSheet, Text } from "react-native";
 import LuciColors from "../styles/LuciColors";
-import LuciTypography from "../styles/Typography";
 
 interface Props {
     text: string,
@@ -15,21 +14,18 @@ export const LuciButton: React.FC<Props> = ({ text, onPress, style }) => {
             style={[ styles.button, style ]}
             onPress={onPress}
         >
-            <Text
-                style={[
-                    LuciTypography.primaryButton.getStylesheet(),
-                    {
-                        alignSelf: 'center',
-                    }
-                ]}
-            > 
-                { text } 
-            </Text>
+            <Text style={styles.text}> { text } </Text>
         </TouchableOpacity>
     )
 }
 
 const styles = StyleSheet.create({
+    text: {
+        fontWeight: 'bold',
+        color: LuciColors.textLight.getColor(),
+        fontSize: 20,
+        alignSelf: 'center',
+    },
     button: {
         shadowColor: 'rgba(0,0,0, .4)', // IOS
         shadowOffset: { height: 1, width: 1 }, // IOS
