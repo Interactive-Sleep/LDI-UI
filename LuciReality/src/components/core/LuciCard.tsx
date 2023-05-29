@@ -6,12 +6,13 @@ import LuciColors from "../styles/LuciColors";
 interface Props {
     onPress: () => void;
     children: any;
+    style?: Object;
 }
 
-export const LuciCard: React.FC<Props> = ({ onPress, children }) => {
+export const LuciCard: React.FC<Props> = ({ onPress, children, style }) => {
     return (
         <TouchableOpacity
-            style={ styles.card }
+            style={ [styles.card, style] }
             onPress={ onPress }
         >
             { children }
@@ -21,6 +22,7 @@ export const LuciCard: React.FC<Props> = ({ onPress, children }) => {
 
 const styles = StyleSheet.create({
     card: {
+        width: '80%',
         backgroundColor: LuciColors.cardBackgroundLight.getColor(),
         borderRadius: 10,
         shadowColor: 'rgba(0,0,0, .4)', // IOS

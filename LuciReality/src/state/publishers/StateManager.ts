@@ -1,5 +1,6 @@
-import LeafPublisher from "./impl/LeafPublisher";
-import LeafValuePublisher from "./impl/LeafValuePublisher"
+import { Arduino } from "../../model/core/Arudino";
+import LuciPublisher from "./impl/LeafPublisher";
+import LuciValuePublisher from "./impl/LeafValuePublisher"
 
 /**
  * Stores application-level state to avoid having to pass state to different components, and reduces component coupling. Uses the publisher-subscriber pattern.
@@ -30,6 +31,10 @@ import LeafValuePublisher from "./impl/LeafValuePublisher"
  * ```
  */
 class StateManager {
+
+    public static readonly arduinos = new LuciValuePublisher<Arduino[]>([]);
+
+    public static readonly workersFetched = new LuciPublisher();
 
 }
 

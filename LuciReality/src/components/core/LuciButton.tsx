@@ -6,12 +6,13 @@ import LuciTypography from "../styles/Typography";
 interface Props {
     text: string,
     onPress: () => void,
+    style?: Object
 }
 
-export const LuciButton: React.FC<Props> = ({ text, onPress }) => {
+export const LuciButton: React.FC<Props> = ({ text, onPress, style }) => {
     return (
         <TouchableOpacity
-            style={styles.button}
+            style={[ styles.button, style ]}
             onPress={onPress}
         >
             <Text
@@ -36,7 +37,7 @@ const styles = StyleSheet.create({
         shadowRadius: 1, //IOS
         backgroundColor: LuciColors.accent.getColor(),
         borderRadius: 10,
-        width: '50%',
+        width: '80%',
         height: '5%',
         justifyContent: 'center'
     }

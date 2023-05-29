@@ -4,10 +4,10 @@ import { configureStore, createSlice } from "@reduxjs/toolkit";
  * A redux wrapper for managing application-wide state using the publisher-subscriber pattern.
  * To only be initialised within StateManager.
  */
-class LeafPublisher {
+class LuciPublisher {
 
     private readonly slice = createSlice({
-        name: 'LeafPublisher',
+        name: 'LuciPublisher',
         initialState: {
             value: 0
         },
@@ -32,4 +32,4 @@ class LeafPublisher {
 
 }
 
-export default LeafPublisher;
+export default LuciPublisher;
