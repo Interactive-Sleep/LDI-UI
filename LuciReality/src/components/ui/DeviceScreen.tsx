@@ -28,7 +28,7 @@ export const DeviceScreen: React.FC<Props> = ({ navigation }) => {
       setSelectedDevice(device);
     })
 
-    const [selectedDevice, setSelectedDevice] = useState<Device | null>(null)
+    const [selectedDevice, setSelectedDevice] = useState<Device | null>(StateManager.selectedDevice.read())
 
     useEffect(() => {
       const unsubscribe = navigation.addListener('beforeRemove', (e) => {
@@ -94,7 +94,7 @@ const DeviceAttatchments: React.FC<DeviceProps> = ({ device }) => {
 
 const DeviceCommands: React.FC<DeviceProps> = ({ device }) => {
   
-  if (device == null){
+  if (device == null || device.commandSchedular.scheduledCommands.length <= 0){
     return (
       <LuciContainer style={styles.emptyContainer}>
         <LuciText text={"No commands"} font={Typography.instance.body}/>
@@ -105,7 +105,7 @@ const DeviceCommands: React.FC<DeviceProps> = ({ device }) => {
   return (
     <LuciContainer>
       {
-        device.commandSchedular.commands.map((command: Command, index: number) => <LuciText key={UUID.generate().toString()} text={`${index}: ${command.name}`} font={Typography.instance.cardTitle}/>)
+        device.commandSchedular.scheduledCommands.map((command: Command, index: number) => <LuciText key={UUID.generate().toString()} text={`${index}: ${command.name}`} font={Typography.instance.cardTitle}/>)
       }
     </LuciContainer>  
   );
