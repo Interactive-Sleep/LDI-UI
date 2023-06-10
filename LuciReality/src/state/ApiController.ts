@@ -30,7 +30,6 @@ export class ApiController {
         .then(json => {
             const commands: Command[] = json.commands;
             StateManager.commands.publish(commands);
-            console.log(commands.length)
         })
         .catch(err => console.error(err))
     }
