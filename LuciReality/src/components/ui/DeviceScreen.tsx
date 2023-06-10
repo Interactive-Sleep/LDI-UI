@@ -32,13 +32,14 @@ export const DeviceScreen: React.FC<Props> = ({ navigation }) => {
 
     StateManager.commands.subscribe(() => {
       const commands = StateManager.commands.read();
-      setCommands(commands)
+      setCommands(commands);
     })
 
     const addCommand = (device: Device | null, command: Command) => {
       if (device != null){
-        ApiController.instance.scheduleCommandForDevice(device, command, () => null);
-
+        ApiController.instance.scheduleCommandForDevice(device, command, () => {
+          ApiController.instance.getCommandsForDevice(device);
+        });
       }
     }
 

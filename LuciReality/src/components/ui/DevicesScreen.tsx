@@ -1,3 +1,4 @@
+import { useFocusEffect } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Attatchment } from '../../model/core/Attatchment';
@@ -20,9 +21,9 @@ interface DeviceScreenProps {
 export const DevicesScreen: React.FC<DeviceScreenProps> = ({ navigation }) => {
 
   // this will update state on completion
-  useEffect(() => {
+  useFocusEffect(() => {
     ApiController.instance.getDevices();
-  }, []);
+  });
 
   const [ connectedDevices, setConnectedDevices ] = useState<Device[]>([])
   // get arduinos
@@ -57,6 +58,7 @@ const DeviceComponent: React.FC<DeviceComponentProps> = ({ device, navigation })
         onPress={() => {
           // update state 
           StateManager.selectedDevice.publish(device);
+          StateManager.commands.publish(device.commandSchedular.scheduledCommands);
           StateManager.headerTitleOverride.publish(`Device ${device.uid}`);
           navigation.navigate("DEVICE");
         }}
