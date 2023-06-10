@@ -2,6 +2,7 @@ import LuciScreen from "../../../core/navigation/LuciScreen";
 import LuciStack from "../../../core/navigation/LuciStack";
 import { DevicesScreen } from "../../DevicesScreen";
 import { DeviceScreen } from "../../DeviceScreen";
+import { CommandHubScreen } from "../../CommandHubScreen";
 
 export const CommandStack = new LuciStack(
     "Command Hub",
@@ -10,15 +11,8 @@ export const CommandStack = new LuciStack(
 )
 .addScreen(
     new LuciScreen(
-        "Devices",
-        "DEVICES",
-        DevicesScreen
-    )
-)
-.addScreen(
-    new LuciScreen(
-        "Device",
-        "DEVICE",
-        DeviceScreen
+        "Hub",
+        "COMMAND_HUB",
+        CommandHubScreen
     )
 )
