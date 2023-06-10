@@ -1,12 +1,9 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { ArudinosScreen } from './src/components/stacks/Arduinos';
-import { CommandStack } from './src/components/stacks/CommandStack';
+import { MainScreen } from './src/components/MainScreen';
+import 'react-native-gesture-handler';
 
 export default function App() {
 
   return (
-    <NavigationContainer>
-      <CommandStack/>
-    </NavigationContainer>
+    <MainScreen />
   );
 }

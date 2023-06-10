@@ -1,5 +1,5 @@
 import { UnreachableCaseError } from "../../../../language/errors/UnreachableCaseError";
-import { Environment } from "../../../../state/Environment";
+import { Environment } from "../../../../state/environment/Environment";
 import { androidFonts, iosFonts, webFonts } from "./ReactNativeFonts";
 
 /**

@@ -1,5 +1,5 @@
 import { assert } from "../../../../language/assertions/Assert";
-import { Environment } from "../../../../state/Environment";
+import { Environment } from "../../../../state/environment/Environment";
 
 /**
  * This class holds the light and dark colour strings for a colour in PomoDoran. It also validates the colour 

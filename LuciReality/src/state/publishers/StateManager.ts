@@ -1,3 +1,4 @@
+import { ColourProvider } from "../../components/core/style/ColourProvider";
 import { Arduino } from "../../model/core/Arudino";
 import { Command } from "../../model/core/Command";
 import LuciPublisher from "./impl/LeafPublisher";
@@ -33,11 +34,21 @@ import LuciValuePublisher from "./impl/LeafValuePublisher"
  */
 class StateManager {
 
+    public static readonly selectedViewIsSelected = new LuciPublisher();
+
+    public static readonly drawerShowStack = new LuciValuePublisher(false);
+
+    public static readonly headerColor = new LuciValuePublisher(ColourProvider.instance.background.getColour());
+
+    public static readonly headerTitleOverride = new LuciValuePublisher<string | null>(null);
+
     public static readonly arduinos = new LuciValuePublisher<Arduino[]>([]);
 
     public static readonly commands = new LuciValuePublisher<Command[]>([]);
 
-    public static readonly workersFetched = new LuciPublisher();
+    public static readonly drawerItemChanged = new LuciValuePublisher(0);
+
+    public static readonly sideBarItemPressed = new LuciPublisher();
 
 }
 
