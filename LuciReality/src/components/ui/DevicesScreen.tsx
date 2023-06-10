@@ -10,12 +10,13 @@ import { LuciText } from '../core/custom/views/lucitext/LuciText';
 import { BaseDimensions } from '../core/style/BaseDimensions';
 import { ColourProvider } from '../core/style/ColourProvider';
 import { Typography } from '../core/style/Typography';
+import { DevicesNavigationProp } from './navigation/Params';
 
 interface DeviceScreenProps {
-
+  navigation: DevicesNavigationProp;
 };
 
-export const DevicesScreen: React.FC<DeviceScreenProps> = () => {
+export const DevicesScreen: React.FC<DeviceScreenProps> = ({ navigation }) => {
 
   // this will update state on completion
   useEffect(() => {
@@ -24,15 +25,15 @@ export const DevicesScreen: React.FC<DeviceScreenProps> = () => {
 
   const [ connectedDevices, setConnectedDevices ] = useState<Device[]>([])
   // get arduinos
-  StateManager.arduinos.subscribe(() => {
-    setConnectedDevices(StateManager.arduinos.read())
+  StateManager.devices.subscribe(() => {
+    setConnectedDevices(StateManager.devices.read())
   })
 
   return (
     <View style={styles.container}>
       <ScrollView style={{flex: 1, paddingBottom: 90}}>
         {
-          connectedDevices.map((device: Device) => <DeviceComponent key={device.uid} device={device}/>)
+          connectedDevices.map((device: Device) => <DeviceComponent key={device.uid} device={device} navigation={navigation}/>)
         }
         
         {/* Hacky! */}
@@ -46,12 +47,20 @@ export const DevicesScreen: React.FC<DeviceScreenProps> = () => {
 
 interface DeviceComponentProps {
   device: Device;
+  navigation: DevicesNavigationProp;
 };
 
-const DeviceComponent: React.FC<DeviceComponentProps> = ({ device }) => {
+const DeviceComponent: React.FC<DeviceComponentProps> = ({ device, navigation }) => {
   return (
     <View style={styles.deviceWrapper}>
-      <LuciFloatingCard>
+      <LuciFloatingCard
+        onPress={() => {
+          // update state 
+          StateManager.selectedDevice.publish(device);
+          StateManager.headerTitleOverride.publish(`Device ${device.uid}`);
+          navigation.navigate("DEVICE");
+        }}
+      >
         <LuciText text={`Device ${device.uid}`} font={Typography.instance.cardTitle}/>
         <LuciText text={"Attatchments"} font={Typography.instance.cardSubTitle}/>
         {

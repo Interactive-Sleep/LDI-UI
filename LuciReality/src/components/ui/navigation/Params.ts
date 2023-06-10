@@ -1,8 +1,8 @@
 import { StackNavigationProp } from "@react-navigation/stack";
 
-type UIStackParamList = {
+type DevicesStackParamList = {
     "CONNECTED_DEVICES": undefined; 
-    "COMMAND_HUB": undefined; 
+    "DEVICE": undefined; 
 }
 
-export type UINavigationProp = StackNavigationProp<UIStackParamList, "CONNECTED_DEVICES">
+export type DevicesNavigationProp = StackNavigationProp<DevicesStackParamList, "CONNECTED_DEVICES">

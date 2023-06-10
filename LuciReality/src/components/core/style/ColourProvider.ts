@@ -41,7 +41,7 @@ export class ColourProvider {
 
     public get lightAccent(){
         return new Colour(
-            "#EBF4F7",
+            "#F0FBFF",
             "#D6D6D6"
         )
     }

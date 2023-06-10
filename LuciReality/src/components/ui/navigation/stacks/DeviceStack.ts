@@ -4,7 +4,7 @@ import { DevicesScreen } from "../../DevicesScreen";
 import { DeviceScreen } from "../../DeviceScreen";
 
 export const DeviceStack = new LuciStack(
-    "Connected Devices",
+    "Home",
     "home-outline",
     "home"
 )

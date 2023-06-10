@@ -81,7 +81,8 @@ const CustomLuciHeader: React.FC<CustomLeafHeaderProps> = ({ title, buttonProps 
                         </TouchableOpacity>
                     : null
                 }
-                <LuciText text={headerTitle} font={Typography.instance.title}/>
+                
+                <LuciText style={styles.titleWrapper} text={headerTitle} font={Typography.instance.title}/>
             </View>
         </SafeAreaView>
     )

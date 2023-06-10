@@ -6,18 +6,21 @@ import { Colour } from "../../../style/colour/Colour";
 import { ColourProvider } from "../../../style/ColourProvider";
 
 interface Props {
+    onPress?: () => void;
     colour?: Colour;
     style?: ViewStyle;
     children: any;
 };
 
 export const LuciFloatingCard: React.FC<Props> = ({ 
+    onPress = () => null,
     colour = ColourProvider.instance.cardBackground, 
     style,
     children 
 }) => {
     return (
         <TouchableOpacity
+            onPress={onPress}
             style={[
                 styles.container,
                 { backgroundColor: colour.getColour() },

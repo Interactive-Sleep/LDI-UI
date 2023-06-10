@@ -41,14 +41,18 @@ class StateManager {
     public static readonly headerColor = new LuciValuePublisher(ColourProvider.instance.background.getColour());
 
     public static readonly headerTitleOverride = new LuciValuePublisher<string | null>(null);
+    
+    public static readonly sideBarItemPressed = new LuciPublisher();
+    
+    public static readonly drawerItemChanged = new LuciValuePublisher(0);
 
-    public static readonly arduinos = new LuciValuePublisher<Device[]>([]);
+    public static readonly selectedDevice = new LuciValuePublisher<Device | null>(null);
+
+    public static readonly devices = new LuciValuePublisher<Device[]>([]);
 
     public static readonly commands = new LuciValuePublisher<Command[]>([]);
 
-    public static readonly drawerItemChanged = new LuciValuePublisher(0);
 
-    public static readonly sideBarItemPressed = new LuciPublisher();
 
 }
 

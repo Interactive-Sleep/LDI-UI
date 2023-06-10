@@ -2,23 +2,31 @@ import { useEffect, useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { ApiController } from '../../state/ApiController';
 import StateManager from '../../state/publishers/StateManager';
-import { RouteProp } from '@react-navigation/native';
 import { Command } from '../../model/core/Command';
+import { DevicesNavigationProp } from './navigation/Params';
+import { Device } from '../../model/core/Device';
 
+interface Props {
+  navigation: DevicesNavigationProp;
+};
 
-export const DeviceScreen: React.FC = ({  }) => {
-
-    // useEffect(() => {
-    //     ApiController.instance.getCommandsForArduino(route.params.arduino);
-    // }, [])
+export const DeviceScreen: React.FC<Props> = ({ navigation }) => {
     
-    // TODO: publish override title
-    
-    const [ commands, setCommands ] = useState<Command[]>([]);
-
-    StateManager.commands.subscribe(() => {
-        setCommands(StateManager.commands.read());
+    StateManager.selectedDevice.subscribe(() => {
+      const device = StateManager.selectedDevice.read();
+      setSelectedDevice(device);
     })
+
+    const [selectedDevice, setSelectedDevice] = useState<Device | null>(null)
+
+    useEffect(() => {
+      const unsubscribe = navigation.addListener('beforeRemove', (e) => {
+          // Executed when a navigation event occurs
+          // Reset header override
+          StateManager.headerTitleOverride.publish(null);
+      });
+      return unsubscribe;
+    }, [navigation]);
 
     return (
         <SafeAreaView style={styles.container}>

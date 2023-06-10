@@ -14,7 +14,7 @@ export class ApiController {
         .then(res => res.json())
         .then(json => {
             const arduinos: Device[] = json.arduinos;
-            StateManager.arduinos.publish(arduinos)
+            StateManager.devices.publish(arduinos)
         })
         .catch(err => console.error(err))
     }
