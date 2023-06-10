@@ -14,6 +14,8 @@ import { Attatchment } from '../../model/core/Attatchment';
 import UUID from '../../model/util/UUID';
 import { LuciHStack } from '../core/custom/containers/lucihstack/LuciHStack';
 import { LuciButton } from '../core/custom/views/lucibutton/LuciButton';
+import { Environment } from '../../state/environment/Environment';
+import { ScreenType } from '../../state/environment/types/ScreenType';
 
 interface Props {
   navigation: DevicesNavigationProp;
@@ -50,7 +52,7 @@ export const DeviceScreen: React.FC<Props> = ({ navigation }) => {
 
           <LuciHStack>
             <View style={styles.buttonContainer}>
-              <LuciButton label={"Add command"} onPress={() => null}/>
+              <LuciButton label={Environment.instance.getScreenType() == ScreenType.large ? "Add command" : "Add"} onPress={() => null}/>
             </View>
             <View style={styles.buttonContainer}>
               <LuciButton label={"Disconnect"} onPress={() => null} colour={ColourProvider.instance.secondaryButton}/>

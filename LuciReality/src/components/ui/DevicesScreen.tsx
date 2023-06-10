@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Attatchment } from '../../model/core/Attatchment';
 import { Device } from '../../model/core/Device';
+import UUID from '../../model/util/UUID';
 import { ApiController } from '../../state/ApiController';
 import StateManager from '../../state/publishers/StateManager';
 import { LuciFloatingCard } from '../core/custom/containers/lucifloatingcard/LuciFloatingCard';
@@ -66,7 +67,7 @@ const DeviceComponent: React.FC<DeviceComponentProps> = ({ device, navigation })
           device.attatchments.length <= 0 ?
             <LuciText text={"None"} font={Typography.instance.body}/>
             :
-            device.attatchments.map((attatchment: Attatchment) =>  <LuciText text={attatchment.name} font={Typography.instance.body}/>)
+            device.attatchments.map((attatchment: Attatchment) =>  <LuciText text={attatchment.name} font={Typography.instance.body} key={UUID.generate().toString()}/>)
         }
       </LuciFloatingCard>
     </View>
