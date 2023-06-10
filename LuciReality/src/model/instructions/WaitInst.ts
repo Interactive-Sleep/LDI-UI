@@ -1,4 +1,4 @@
-import { Instruction } from "../Core/Instruction";
+import { Instruction } from "../core/Instruction";
 
 // this is a an extension of an object so it works with our typing
 type WaitPayload = {

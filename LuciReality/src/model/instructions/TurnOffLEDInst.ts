@@ -1,4 +1,4 @@
-import { Instruction } from "../Core/Instruction";
+import { Instruction } from "../core/Instruction";
 
 /**
  * Class for turning off LED

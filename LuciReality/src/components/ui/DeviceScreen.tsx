@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { ApiController } from '../../state/ApiController';
 import StateManager from '../../state/publishers/StateManager';
 import { Command } from '../../model/core/Command';
@@ -16,6 +16,7 @@ import { LuciHStack } from '../core/custom/containers/lucihstack/LuciHStack';
 import { LuciButton } from '../core/custom/views/lucibutton/LuciButton';
 import { Environment } from '../../state/environment/Environment';
 import { ScreenType } from '../../state/environment/types/ScreenType';
+import { VisualStimulusCommand } from '../../model/commands/VisualStimulusCommand';
 
 interface Props {
   navigation: DevicesNavigationProp;
@@ -25,14 +26,19 @@ export const DeviceScreen: React.FC<Props> = ({ navigation }) => {
     
     StateManager.selectedDevice.subscribe(() => {
       const device = StateManager.selectedDevice.read();
+      console.log(device?.commandSchedular)
       setSelectedDevice(device);
     })
 
-    const addCommand = (device: Device) => {
-      ApiController.instance.scheduleCommandForDevice(device, () => {
-        // we want to update state
-        ApiController.instance.getDevices();
-      })
+    const addCommand = (device: Device | null, command: Command) => {
+      if (device != null){
+        ApiController.instance.scheduleCommandForDevice(device, command, () => {
+          // we want to update state
+          console.log("yeet")
+          device.commandSchedular.scheduleCommand(command);
+          StateManager.selectedDevice.publish(device);
+        })
+      }
     }
 
     const [selectedDevice, setSelectedDevice] = useState<Device | null>(StateManager.selectedDevice.read())
@@ -61,7 +67,10 @@ export const DeviceScreen: React.FC<Props> = ({ navigation }) => {
 
           <LuciHStack>
             <View style={styles.buttonContainer}>
-              <LuciButton label={Environment.instance.getScreenType() == ScreenType.large ? "Add command" : "Add"} onPress={() => addCommand(selectedDevice)}/>
+              {/* 
+                // TODO: we need a modal here that lets you select the correct command
+              */}
+              <LuciButton label={Environment.instance.getScreenType() == ScreenType.large ? "Add command" : "Add"} onPress={() => addCommand(selectedDevice, new VisualStimulusCommand())}/>
             </View>
             <View style={styles.buttonContainer}>
               <LuciButton label={"Disconnect"} onPress={() => null} colour={ColourProvider.instance.secondaryButton}/>

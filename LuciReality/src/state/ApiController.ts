@@ -33,7 +33,7 @@ export class ApiController {
      * 
      * @param updateUI must update UI
      */
-    public scheduleCommandForDevice(device: Device, updateUI: () => void){
+    public scheduleCommandForDevice(device: Device, command:Command, updateUI: () => void){
         let options = {
             method: 'POST',
             headers: {
@@ -42,7 +42,7 @@ export class ApiController {
             body: JSON.stringify('')
         }
         
-        fetch(this.rootUrl + `/command/${device.uid}/VisualStimulus`, options)
+        fetch(this.rootUrl + `/command/${device.uid}/${command.name}`, options)
         .then(_ => updateUI())
         .catch(err => {
             console.error(err)

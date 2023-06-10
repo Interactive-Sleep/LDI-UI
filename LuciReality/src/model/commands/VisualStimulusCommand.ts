@@ -1,6 +1,6 @@
-import { Command } from "../Core/Command";
-import { CommandNames } from "../Core/CommandNameEnum";
-import { Instruction } from "../Core/Instruction";
+import { Command } from "../core/Command";
+import { CommandNames } from "../core/CommandNameEnum";
+import { Instruction } from "../core/Instruction";
 import { TurnOffLEDInst } from "../instructions/TurnOffLEDInst";
 import { TurnOnLEDInst } from "../instructions/TurnOnLEDInst";
 import { WaitInst } from "../instructions/WaitInst";
