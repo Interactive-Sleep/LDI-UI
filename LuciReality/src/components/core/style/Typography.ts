@@ -29,6 +29,17 @@ export class Typography {
         );
     }
 
+    public get cardTitle(){
+        return new Font(
+            new FontFormatting(
+                "bold"
+            ),
+            30,
+            new FontFamily(),
+            ColourProvider.instance.text
+        );
+    }
+
     public get body(){
         return new Font(
             new FontFormatting(

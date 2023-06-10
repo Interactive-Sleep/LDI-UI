@@ -36,10 +36,10 @@ const styles = StyleSheet.create({
         shadowColor: ColourProvider.instance.shadowColour.getColour(),
         shadowOffset: {
             width: 0,
-            height: 4,
+            height: 3,
         },
         // Shadows appear sligntly differnt on web
         shadowOpacity: Environment.instance.getOS() == "web" ? 0.16 : 0.12,
-        shadowRadius: Environment.instance.getOS() == "web" ? 12 : 7,
+        shadowRadius: Environment.instance.getOS() == "web" ? 4 : 2,
     }
 })

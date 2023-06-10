@@ -3,8 +3,17 @@ import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Device } from '../../model/core/Device';
 import { ApiController } from '../../state/ApiController';
 import StateManager from '../../state/publishers/StateManager';
+import { LuciFloatingCard } from '../core/custom/containers/lucifloatingcard/LuciFloatingCard';
+import { LuciText } from '../core/custom/views/lucitext/LuciText';
+import { BaseDimensions } from '../core/style/BaseDimensions';
+import { ColourProvider } from '../core/style/ColourProvider';
+import { Typography } from '../core/style/Typography';
 
-export const DevicesScreen: React.FC = () => {
+interface DeviceScreenProps {
+
+};
+
+export const DevicesScreen: React.FC<DeviceScreenProps> = () => {
 
   // this will update state on completion
   useEffect(() => {
@@ -18,22 +27,33 @@ export const DevicesScreen: React.FC = () => {
   })
 
   return (
-    <SafeAreaView style={styles.container}>
-
-    </SafeAreaView>
+    <View style={styles.container}>
+      <ScrollView style={{flex: 1}}>
+        {
+          connectedDevices.map((device: Device) => <DeviceComponent key={device.uid} device={device}/>)
+        }
+      </ScrollView>
+    </View>
   );
-}
+};
+
+interface DeviceComponentProps {
+  device: Device;
+};
+
+const DeviceComponent: React.FC<DeviceComponentProps> = ({ device }) => {
+  return (
+    <LuciFloatingCard>
+      <LuciText text={`Device ${device.uid}`} font={Typography.instance.cardTitle}/>
+    </LuciFloatingCard>
+  )
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-  },
-  scrollview: {
-    flex: 1,
-    width: '90%', // this was being so dumb, this is just a prototype so i dont really care but still
+    padding: BaseDimensions.instance.screenPadding,
+    backgroundColor: ColourProvider.instance.background.getColour()
   },
   button: {
     position: 'absolute',
