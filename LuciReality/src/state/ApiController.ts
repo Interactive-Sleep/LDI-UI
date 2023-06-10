@@ -43,11 +43,12 @@ export class ApiController {
         }
         
         fetch(this.rootUrl + `/command/${device.uid}/${command.name}`, options)
-        .then(_ => updateUI())
         .catch(err => {
             console.error(err)
             return false
         });
+
+        updateUI();
     }
 
     public deleteCommandFromDevice(){

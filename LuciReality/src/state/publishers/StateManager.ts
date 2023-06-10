@@ -51,9 +51,6 @@ class StateManager {
     public static readonly devices = new LuciValuePublisher<Device[]>([]);
 
     public static readonly commands = new LuciValuePublisher<Command[]>([]);
-
-
-
 }
 
 export default StateManager;

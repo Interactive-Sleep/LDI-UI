@@ -26,22 +26,24 @@ export const DeviceScreen: React.FC<Props> = ({ navigation }) => {
     
     StateManager.selectedDevice.subscribe(() => {
       const device = StateManager.selectedDevice.read();
-      console.log(device?.commandSchedular)
       setSelectedDevice(device);
+      StateManager.commands.publish(device?.commandSchedular.commands || []);
+    })
+
+    StateManager.commands.subscribe(() => {
+      const commands = StateManager.commands.read();
+      setCommands(commands)
     })
 
     const addCommand = (device: Device | null, command: Command) => {
       if (device != null){
-        ApiController.instance.scheduleCommandForDevice(device, command, () => {
-          // we want to update state
-          console.log("yeet")
-          device.commandSchedular.scheduleCommand(command);
-          StateManager.selectedDevice.publish(device);
-        })
+        ApiController.instance.scheduleCommandForDevice(device, command, () => null);
+
       }
     }
 
-    const [selectedDevice, setSelectedDevice] = useState<Device | null>(StateManager.selectedDevice.read())
+    const [selectedDevice, setSelectedDevice] = useState<Device | null>(StateManager.selectedDevice.read());
+    const [commands, setCommands] = useState<Command[]>(StateManager.commands.read());
 
     useEffect(() => {
       const unsubscribe = navigation.addListener('beforeRemove', (e) => {
@@ -62,7 +64,7 @@ export const DeviceScreen: React.FC<Props> = ({ navigation }) => {
             </View>
 
             <LuciText text={"Commands"} font={Typography.instance.subTitle}/>
-            <DeviceCommands device={selectedDevice}/>
+            <DeviceCommands commands={commands}/>
           </ScrollView>
 
           <LuciHStack>
@@ -110,9 +112,13 @@ const DeviceAttatchments: React.FC<DeviceProps> = ({ device }) => {
   );
 }
 
-const DeviceCommands: React.FC<DeviceProps> = ({ device }) => {
+interface CommandProps {
+  commands: Command[];
+};
+
+const DeviceCommands: React.FC<CommandProps> = ({ commands }) => {
   
-  if (device == null || device.commandSchedular.scheduledCommands.length <= 0){
+  if (commands.length <= 0){
     return (
       <LuciContainer style={styles.emptyContainer}>
         <LuciText text={"No commands"} font={Typography.instance.body}/>
@@ -123,7 +129,7 @@ const DeviceCommands: React.FC<DeviceProps> = ({ device }) => {
   return (
     <View>
       {
-        device.commandSchedular.scheduledCommands.map((command: Command, index: number) => {
+        commands.map((command: Command, index: number) => {
           return (
             <View style={styles.verticalPaddedView} key={UUID.generate().toString()}>
               <LuciContainer>

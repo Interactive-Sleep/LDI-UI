@@ -5,7 +5,7 @@ export class Device {
 
     readonly uid: number;
     private avaliableAttatchments: Attatchment[];
-    public readonly commandSchedular: CommandSchedular;
+    public commandSchedular: CommandSchedular;
 
     constructor(uid: number, attatchments: Attatchment[]){
         this.uid = uid;
