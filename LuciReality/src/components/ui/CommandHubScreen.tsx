@@ -13,6 +13,8 @@ import { Device } from "../../model/core/Device";
 import { Command } from "../../model/core/Command";
 import { ApiController } from "../../state/ApiController";
 import UUID from "../../model/util/UUID";
+import { LuciHStack } from "../core/custom/containers/lucihstack/LuciHStack";
+import { LuciButton } from "../core/custom/views/lucibutton/LuciButton";
 
 interface Props {
     navigation: CommandHubNavigationProp;
@@ -43,6 +45,11 @@ export const CommandHubScreen: React.FC<Props> = ({ navigation }) => {
                 <LuciText text={"Commands for"} font={Typography.instance.subTitle}/>
                 <Devices devices={devices}/>
             </ScrollView>
+
+            <View style={styles.buttonContainer}>
+                <LuciButton label={"Refresh"} onPress={() => null}/>
+            </View>
+
         </View>
     );
 };
@@ -118,4 +125,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         minHeight: 100
     },
+    buttonContainer: {
+        paddingBottom: BaseDimensions.instance.buttonSpacingFromBottom,
+    }
 });

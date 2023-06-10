@@ -127,7 +127,8 @@ const styles = StyleSheet.create({
     buttonContainer: {
       flex: 1,
       alignItems: "center",
-      padding: BaseDimensions.instance.cardSpacing
+      padding: BaseDimensions.instance.cardSpacing,
+      paddingBottom: BaseDimensions.instance.buttonSpacingFromBottom
     }
   });
   

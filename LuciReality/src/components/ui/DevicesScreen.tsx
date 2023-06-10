@@ -35,12 +35,11 @@ export const DevicesScreen: React.FC<DeviceScreenProps> = ({ navigation }) => {
         {
           connectedDevices.map((device: Device) => <DeviceComponent key={device.uid} device={device} navigation={navigation}/>)
         }
-        
-        {/* Hacky! */}
-        <View style={styles.viewSpaceForButton}/>
       </ScrollView>
 
-      <LuciButton style={styles.button} label={"Refresh"} onPress={() => ApiController.instance.getDevices()}/>
+      <View style={styles.buttonContainer}>
+        <LuciButton label={"Refresh"} onPress={() => ApiController.instance.getDevices()}/>
+      </View>
     </View>
   );
 };
@@ -74,8 +73,6 @@ const DeviceComponent: React.FC<DeviceComponentProps> = ({ device, navigation })
   )
 };
 
-const ButtonPlacementFromBottom = 30;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -85,12 +82,7 @@ const styles = StyleSheet.create({
   deviceWrapper: {
     paddingVertical: BaseDimensions.instance.screenPadding
   },
-  button: {
-    position: "absolute",
-    alignSelf: "center",
-    bottom: ButtonPlacementFromBottom,
+  buttonContainer: {
+    paddingBottom: BaseDimensions.instance.buttonSpacingFromBottom
   },
-  viewSpaceForButton: {
-    height: ButtonPlacementFromBottom * 3,
-  }
 });

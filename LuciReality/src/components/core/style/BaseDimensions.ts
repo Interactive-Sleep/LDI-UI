@@ -12,4 +12,6 @@ export class BaseDimensions {
 
     public readonly buttonBorderRadius = 20;
 
+    public readonly buttonSpacingFromBottom = 30;
+
 }
