@@ -47,7 +47,7 @@ export class DeviceManager {
         if (device == undefined){
             return device
         }
-        return device.commandSchedular.getNextCommand();
+        return device.commandSchedular.nextCommand;
     }
 
     /**

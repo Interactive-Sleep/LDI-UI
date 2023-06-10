@@ -31,7 +31,7 @@ export const LuciButton: React.FC<Props> = ({
             style={[
                 style, 
                 wide ? { width : "100%" } : { alignSelf: "center" },
-                type == "filled" ? { backgroundColor: colour.getColour() } : { borderColor: colour.getColour() },
+                type == "filled" ? { backgroundColor: colour.getColour() } : { borderColor: colour.getColour(), borderWidth: 3 },
                 { 
                     borderRadius: BaseDimensions.instance.buttonBorderRadius,
                     minHeight: 60,
@@ -47,7 +47,7 @@ export const LuciButton: React.FC<Props> = ({
                 }
             ]}
         >
-            <LuciText text={label} font={Typography.instance.button}/>
+            <LuciText text={label} font={type == "filled" ? Typography.instance.button : Typography.instance.containedButton}/>
         </TouchableOpacity>
     );
 };

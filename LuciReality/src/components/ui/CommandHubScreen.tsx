@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { VStack } from "native-base";
 import { View, StyleSheet, ScrollView } from "react-native";
 import { LuciContainer } from "../core/custom/containers/lucicontainer/LuciContainer";
@@ -7,8 +7,22 @@ import { BaseDimensions } from "../core/style/BaseDimensions";
 import { ColourProvider } from "../core/style/ColourProvider";
 import { Typography } from "../core/style/Typography";
 import { Environment } from "../../state/environment/Environment";
+import { CommandHubNavigationProp } from "./navigation/Params";
+import StateManager from "../../state/publishers/StateManager";
+import { Device } from "../../model/core/Device";
 
-export const CommandHubScreen: React.FC = () => {
+interface Props {
+    navigation: CommandHubNavigationProp;
+};
+
+export const CommandHubScreen: React.FC<Props> = ({ navigation }) => {
+
+    const [devices, setDevices] = useState<Device[] | null>(StateManager.devices.read());
+
+    StateManager.devices.subscribe(() => {
+        setDevices(StateManager.devices.read())
+    });
+
     return (
         <View style={styles.container}>
             <ScrollView style={styles.scrollView}>
@@ -19,12 +33,23 @@ export const CommandHubScreen: React.FC = () => {
                     </View>
                 </LuciContainer>
 
-                <LuciText text={"Commands"} font={Typography.instance.subTitle}/>
+                <LuciText text={"Commands for"} font={Typography.instance.subTitle}/>
+
                 {/* 
                     // TODO: list each device and the commands
                 */}
             </ScrollView>
         </View>
+    );
+};
+
+interface DevicesProps {
+    devices: Device[] | null
+}
+
+const Devices: React.FC<DevicesProps> = ({ devices }) => {
+    return (
+        
     );
 };
 

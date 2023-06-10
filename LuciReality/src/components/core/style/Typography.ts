@@ -59,7 +59,7 @@ export class Typography {
             15,
             new FontFamily(),
             ColourProvider.instance.text
-        )
+        );
     }
 
     public get centeredBody(){
@@ -83,7 +83,20 @@ export class Typography {
             30,
             new FontFamily(),
             ColourProvider.instance.buttonText
-        )
+        );
+    }
+
+    public get containedButton(){
+        return new Font(
+            new FontFormatting(
+                "bold",
+                "center",
+                "center"
+            ),
+            30,
+            new FontFamily(),
+            ColourProvider.instance.text
+        );
     }
 
     public get pressable(){
@@ -96,7 +109,7 @@ export class Typography {
             30,
             new FontFamily(),
             ColourProvider.instance.primaryButton
-        )
+        );
     }
 
     public get pomodoroTimer(){
@@ -118,6 +131,6 @@ export class Typography {
             15,
             new FontFamily(),
             ColourProvider.instance.text
-        )
+        );
     }
 }

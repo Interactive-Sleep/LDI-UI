@@ -14,7 +14,7 @@ export class CommandSchedular {
      * Get all attachments avaliable
      * @returns avaliable attachments
      */
-    public getAvailableAttatchments(): Attatchment[]{
+    public get attatchments(): Attatchment[]{
         const tmpAttatchments = this.avaliableAttatchments;
         return tmpAttatchments;
     }
@@ -23,12 +23,12 @@ export class CommandSchedular {
      * Get all scheduled commands
      * @returns all scheduled commands
      */
-    public getScheduledCommands(): Command[]{
+    public get commands(): Command[]{
         const tmpCommands = this.scheduledCommands;
         return tmpCommands;
     }
 
-    public getNextCommand(): Command | undefined {
+    public get nextCommand(): Command | undefined {
         const command = this.scheduledCommands.pop()
         return command;
     }
