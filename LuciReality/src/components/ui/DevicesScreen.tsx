@@ -5,6 +5,7 @@ import { Device } from '../../model/core/Device';
 import { ApiController } from '../../state/ApiController';
 import StateManager from '../../state/publishers/StateManager';
 import { LuciFloatingCard } from '../core/custom/containers/lucifloatingcard/LuciFloatingCard';
+import { LuciButton } from '../core/custom/views/lucibutton/LuciButton';
 import { LuciText } from '../core/custom/views/lucitext/LuciText';
 import { BaseDimensions } from '../core/style/BaseDimensions';
 import { ColourProvider } from '../core/style/ColourProvider';
@@ -29,11 +30,16 @@ export const DevicesScreen: React.FC<DeviceScreenProps> = () => {
 
   return (
     <View style={styles.container}>
-      <ScrollView style={{flex: 1}}>
+      <ScrollView style={{flex: 1, paddingBottom: 90}}>
         {
           connectedDevices.map((device: Device) => <DeviceComponent key={device.uid} device={device}/>)
         }
+        
+        {/* Hacky! */}
+        <View style={styles.viewSpaceForButton}/>
       </ScrollView>
+
+      <LuciButton style={styles.button} label={"Refresh"} onPress={() => ApiController.instance.getDevices()}/>
     </View>
   );
 };
@@ -59,17 +65,23 @@ const DeviceComponent: React.FC<DeviceComponentProps> = ({ device }) => {
   )
 };
 
+const ButtonPlacementFromBottom = 30;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: BaseDimensions.instance.screenPadding,
-    backgroundColor: ColourProvider.instance.background.getColour()
+    backgroundColor: ColourProvider.instance.background.getColour(),
   },
   deviceWrapper: {
     paddingVertical: BaseDimensions.instance.screenPadding
   },
   button: {
-    position: 'absolute',
-    bottom: 60,
+    position: "absolute",
+    alignSelf: "center",
+    bottom: ButtonPlacementFromBottom,
+  },
+  viewSpaceForButton: {
+    height: ButtonPlacementFromBottom * 3,
   }
 });

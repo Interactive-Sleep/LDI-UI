@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity, ViewStyle } from "react-native";
 import { Environment } from "../../../../../state/environment/Environment";
 import { BaseDimensions } from "../../../style/BaseDimensions";
 import { Colour } from "../../../style/colour/Colour";
@@ -14,6 +14,7 @@ interface Props {
     wide?: boolean,
     colour?: Colour,
     type?: LuciButtonType,
+    style?: ViewStyle
 };
 
 export const LuciButton: React.FC<Props> = ({ 
@@ -22,11 +23,13 @@ export const LuciButton: React.FC<Props> = ({
     wide = true,
     colour = ColourProvider.instance.primaryButton,
     type = "filled",
+    style
 }) => {
     return (
         <TouchableOpacity
             onPress={onPress}
             style={[
+                style, 
                 wide ? { width : "100%" } : { alignSelf: "center" },
                 type == "filled" ? { backgroundColor: colour.getColour() } : { borderColor: colour.getColour() },
                 { 

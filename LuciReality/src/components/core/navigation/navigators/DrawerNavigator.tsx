@@ -74,7 +74,7 @@ export const DrawerNavigator: React.FC<Props> = ({ stacks }) => {
                     width: Environment.instance.getScreenOrientation() == LuciScreenOrientation.Landscape ? Environment.instance.getScreenWidth() * 0.2 : Environment.instance.getScreenWidth() * 0.3
                 },
                 // TODO: Extract into accentBackgroundColor
-                drawerActiveBackgroundColor:  "#f1edfc",
+                drawerActiveBackgroundColor:  ColourProvider.instance.navigationSelectedBackground.getColour(),
                 drawerActiveTintColor: ColourProvider.instance.accent.getColour(),
                 drawerItemStyle: {
                     borderRadius: 16,

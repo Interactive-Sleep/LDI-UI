@@ -39,6 +39,13 @@ export class ColourProvider {
         );
     }
 
+    public get lightAccent(){
+        return new Colour(
+            "#EBF4F7",
+            "#D6D6D6"
+        )
+    }
+
     public get cardBackground(){
         return new Colour(
             "#E8E8E8",
@@ -50,20 +57,27 @@ export class ColourProvider {
         return new Colour(
             "#000000",
             "#000000"
-        )
+        );
     }
 
     public get buttonText(){
         return new Colour(
             "#FFFFFF",
             "#FFFFFF"
-        )
+        );
     }
 
     public get selectableView(){
         return new Colour(
             "#B0B0B0",
             "#B0B0B0"
-        )
+        );
+    }
+
+    public get navigationSelectedBackground(){
+        return new Colour(
+            "#FFE0E6",
+            "#FFE0E6"
+        );
     }
 }
