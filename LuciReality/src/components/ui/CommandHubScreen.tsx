@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { VStack } from "native-base";
 import { View, StyleSheet, ScrollView } from "react-native";
 import { LuciContainer } from "../core/custom/containers/lucicontainer/LuciContainer";
@@ -10,6 +10,9 @@ import { Environment } from "../../state/environment/Environment";
 import { CommandHubNavigationProp } from "./navigation/Params";
 import StateManager from "../../state/publishers/StateManager";
 import { Device } from "../../model/core/Device";
+import { Command } from "../../model/core/Command";
+import { ApiController } from "../../state/ApiController";
+import UUID from "../../model/util/UUID";
 
 interface Props {
     navigation: CommandHubNavigationProp;
@@ -17,7 +20,11 @@ interface Props {
 
 export const CommandHubScreen: React.FC<Props> = ({ navigation }) => {
 
-    const [devices, setDevices] = useState<Device[] | null>(StateManager.devices.read());
+    useEffect(() => {
+        ApiController.instance.getDevices();
+    }, []);
+
+    const [devices, setDevices] = useState<Device[] | null>(null);
 
     StateManager.devices.subscribe(() => {
         setDevices(StateManager.devices.read())
@@ -34,10 +41,7 @@ export const CommandHubScreen: React.FC<Props> = ({ navigation }) => {
                 </LuciContainer>
 
                 <LuciText text={"Commands for"} font={Typography.instance.subTitle}/>
-
-                {/* 
-                    // TODO: list each device and the commands
-                */}
+                <Devices devices={devices}/>
             </ScrollView>
         </View>
     );
@@ -48,8 +52,45 @@ interface DevicesProps {
 }
 
 const Devices: React.FC<DevicesProps> = ({ devices }) => {
+    
+    if (devices == null){
+        return (
+            <LuciContainer style={styles.emptyContainer}>
+                <LuciText text={"No devices connected"} font={Typography.instance.body}/>
+            </LuciContainer>
+        );
+    };
+
     return (
-        
+        <View>
+            {
+                devices.map((device: Device) => {
+                    return (
+                        <View style={{ flex: 1 }} key={UUID.generate().toString()}>
+                            <LuciText text={`Device ${device.uid}`} font={Typography.instance.cardTitle} key={UUID.generate().toString()}/>
+                            {
+                                device.commandSchedular.scheduledCommands.length <= 0 ?
+                                    <LuciContainer style={styles.emptyContainer} key={UUID.generate().toString()}>
+                                        <LuciText text={`No commands for device ${device.uid}`} font={Typography.instance.body} key={UUID.generate().toString()}/>
+                                    </LuciContainer>
+                                    :
+                                    <View style={{ flex: 1 }} key={UUID.generate().toString()}>
+                                        {
+                                            device.commandSchedular.scheduledCommands.map((command: Command) => {
+                                                return (
+                                                    <LuciContainer key={UUID.generate().toString()}>
+                                                        <LuciText text={command.name} font={Typography.instance.cardTitle} key={UUID.generate().toString()}/>
+                                                    </LuciContainer>           
+                                                );
+                                            })
+                                        }
+                                    </View>
+                            }
+                        </View>
+                    )
+                })
+            }
+        </View>
     );
 };
 
@@ -71,5 +112,10 @@ const styles = StyleSheet.create({
     },
     graphText: {
         alignSelf: "center",
-    }
+    },
+    emptyContainer: {
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: 100
+    },
 });

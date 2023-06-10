@@ -3,7 +3,7 @@ import { Command } from "./Command";
 
 export class CommandSchedular {
 
-    private scheduledCommands: Command[] = [];
+    public scheduledCommands: Command[] = [];
     private readonly avaliableAttatchments: Attatchment[];
 
     public constructor(avaliableAttachments: Attatchment[]){
