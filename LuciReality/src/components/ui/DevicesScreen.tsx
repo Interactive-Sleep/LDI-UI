@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { Arduino } from '../../model/core/Arudino';
+import { Device } from '../../model/core/Arudino';
 import { ApiController } from '../../state/ApiController';
 import StateManager from '../../state/publishers/StateManager';
 
@@ -11,7 +11,7 @@ export const DevicesScreen: React.FC = () => {
   //   ApiController.instance.getArduinos();
   // }, []);
 
-  const [ connectedDevices, setConnectedDevices ] = useState<Arduino[]>([])
+  const [ connectedDevices, setConnectedDevices ] = useState<Device[]>([])
   // get arduinos
   StateManager.arduinos.subscribe(() => {
     setConnectedDevices(StateManager.arduinos.read())

@@ -1,4 +1,4 @@
-import { Arduino } from "../model/core/Arudino";
+import { Device } from "../model/core/Arudino";
 import { Command } from "../model/core/Command";
 import StateManager from "./publishers/StateManager";
 
@@ -13,7 +13,7 @@ export class ApiController {
         fetch(this.rootUrl + "/arduinos")
         .then(res => res.json())
         .then(json => {
-            const arduinos: Arduino[] = json.arduinos;
+            const arduinos: Device[] = json.arduinos;
             StateManager.arduinos.publish(arduinos)
         })
         .catch(err => console.error(err))
@@ -23,7 +23,7 @@ export class ApiController {
 
     }
 
-    public getCommandsForArduino(arduino: Arduino){
+    public getCommandsForArduino(arduino: Device){
         console.log(arduino.uid)
         fetch(this.rootUrl + `/commands/${arduino.uid}`)
         .then(res => res.json())
@@ -38,7 +38,7 @@ export class ApiController {
      * 
      * @param updateUI must update UI
      */
-    public scheduleCommandForArduino(arduino: Arduino, updateUI: () => void){
+    public scheduleCommandForArduino(arduino: Device, updateUI: () => void){
         let options = {
             method: 'POST',
             headers: {

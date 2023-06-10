@@ -1,15 +1,14 @@
-import { Arduino } from "./Arudino";
+import { Device } from "./Device";
 import { Command } from "./Command";
-
 
 export class DeviceManager {
 
-    private devices: Arduino[] = [];
+    private devices: Device[] = [];
     public static readonly instance: DeviceManager = new DeviceManager();
 
     private constructor(){}
 
-    public getDevices(): Arduino[]{
+    public getDevices(): Device[]{
         const tmpArduinos = this.devices;
         return tmpArduinos;
     }
@@ -19,7 +18,7 @@ export class DeviceManager {
      * @param id the arduino id you want to get
      * @returns the arduino with correct id or undefined
      */
-    public getDevice(id: number): Arduino | undefined {
+    public getDevice(id: number): Device | undefined {
         return this.devices.filter(a => a.uid == id)[0]
     }
 
@@ -28,7 +27,7 @@ export class DeviceManager {
      * @param device the arduino you want to add
      * @returns true if added, otherwise, false
      */
-    public addDevice(device: Arduino): boolean {
+    public addDevice(device: Device): boolean {
         if (this.devices.filter(a => a.uid == device.uid).length >= 1){
             return false;
         }

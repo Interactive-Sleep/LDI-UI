@@ -1,7 +1,7 @@
 import { Attatchment } from "./Attatchment";
 import { CommandSchedular } from "./CommandSchedular";
 
-export class Arduino {
+export class Device {
 
     readonly uid: number;
     private attatchments: Array<Attatchment>;
