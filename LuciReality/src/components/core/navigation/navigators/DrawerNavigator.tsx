@@ -23,7 +23,7 @@ interface Props {
 const CustomDrawerContent = (props: any) => {
     return (
         <DrawerContentScrollView {...props}>
-            <LuciText text={"LuciReality"} style={{ paddingLeft: 5 }} font={Typography.instance.subTitle}/>
+            <LuciText text={"Luci"} style={{ paddingLeft: 5 }} font={Typography.instance.subTitle}/>
             <DrawerItemList {...props} />
         </DrawerContentScrollView>
     );

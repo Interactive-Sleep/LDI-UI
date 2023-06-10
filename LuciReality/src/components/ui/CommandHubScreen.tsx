@@ -20,6 +20,9 @@ export const CommandHubScreen: React.FC = () => {
                 </LuciContainer>
 
                 <LuciText text={"Commands"} font={Typography.instance.subTitle}/>
+                {/* 
+                    // TODO: list each device and the commands
+                */}
             </ScrollView>
         </View>
     );
