@@ -28,6 +28,13 @@ export const DeviceScreen: React.FC<Props> = ({ navigation }) => {
       setSelectedDevice(device);
     })
 
+    const addCommand = (device: Device) => {
+      ApiController.instance.scheduleCommandForDevice(device, () => {
+        // we want to update state
+        ApiController.instance.getDevices();
+      })
+    }
+
     const [selectedDevice, setSelectedDevice] = useState<Device | null>(StateManager.selectedDevice.read())
 
     useEffect(() => {
@@ -44,7 +51,9 @@ export const DeviceScreen: React.FC<Props> = ({ navigation }) => {
           <ScrollView style={{ flex: 1 }}>
             <LuciText text={"Attatchments"} font={Typography.instance.subTitle}/>
 
-            <DeviceAttatchments device={selectedDevice}/>
+            <View style={styles.verticalPaddedView}>
+              <DeviceAttatchments device={selectedDevice}/>
+            </View>
 
             <LuciText text={"Commands"} font={Typography.instance.subTitle}/>
             <DeviceCommands device={selectedDevice}/>
@@ -52,7 +61,7 @@ export const DeviceScreen: React.FC<Props> = ({ navigation }) => {
 
           <LuciHStack>
             <View style={styles.buttonContainer}>
-              <LuciButton label={Environment.instance.getScreenType() == ScreenType.large ? "Add command" : "Add"} onPress={() => null}/>
+              <LuciButton label={Environment.instance.getScreenType() == ScreenType.large ? "Add command" : "Add"} onPress={() => addCommand(selectedDevice)}/>
             </View>
             <View style={styles.buttonContainer}>
               <LuciButton label={"Disconnect"} onPress={() => null} colour={ColourProvider.instance.secondaryButton}/>
@@ -103,11 +112,19 @@ const DeviceCommands: React.FC<DeviceProps> = ({ device }) => {
   };
 
   return (
-    <LuciContainer>
+    <View>
       {
-        device.commandSchedular.scheduledCommands.map((command: Command, index: number) => <LuciText key={UUID.generate().toString()} text={`${index}: ${command.name}`} font={Typography.instance.cardTitle}/>)
+        device.commandSchedular.scheduledCommands.map((command: Command, index: number) => {
+          return (
+            <View style={styles.verticalPaddedView} key={UUID.generate().toString()}>
+              <LuciContainer>
+                <LuciText key={UUID.generate().toString()} text={`${index+1}: ${command.name}`} font={Typography.instance.cardTitle}/>
+              </LuciContainer>
+            </View>
+          )
+        })
       }
-    </LuciContainer>  
+    </View>  
   );
 };
 
@@ -131,6 +148,9 @@ const styles = StyleSheet.create({
       alignItems: "center",
       padding: BaseDimensions.instance.cardSpacing,
       paddingBottom: BaseDimensions.instance.buttonSpacingFromBottom
+    },
+    verticalPaddedView: {
+      paddingVertical: BaseDimensions.instance.screenSpacing
     }
   });
   

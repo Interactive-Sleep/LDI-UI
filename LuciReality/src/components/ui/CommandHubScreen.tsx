@@ -83,13 +83,15 @@ const Devices: React.FC<DevicesProps> = ({ devices }) => {
                                         <LuciText text={`No commands for device ${device.uid}`} font={Typography.instance.body} key={UUID.generate().toString()}/>
                                     </LuciContainer>
                                     :
-                                    <View style={{ flex: 1 }} key={UUID.generate().toString()}>
+                                    <View key={UUID.generate().toString()}>
                                         {
                                             device.commandSchedular.scheduledCommands.map((command: Command) => {
                                                 return (
-                                                    <LuciContainer key={UUID.generate().toString()}>
-                                                        <LuciText text={command.name} font={Typography.instance.cardTitle} key={UUID.generate().toString()}/>
-                                                    </LuciContainer>           
+                                                    <View style={styles.verticalPaddedView} key={UUID.generate().toString()}>
+                                                        <LuciContainer key={UUID.generate().toString()}>
+                                                            <LuciText text={command.name} font={Typography.instance.cardTitle} key={UUID.generate().toString()}/>
+                                                        </LuciContainer>           
+                                                     </View>   
                                                 );
                                             })
                                         }
@@ -129,5 +131,8 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         paddingBottom: BaseDimensions.instance.buttonSpacingFromBottom,
+    },
+    verticalPaddedView: {
+        paddingVertical: BaseDimensions.instance.screenSpacing
     }
 });
