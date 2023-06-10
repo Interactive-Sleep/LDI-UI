@@ -7,9 +7,9 @@ import StateManager from '../../state/publishers/StateManager';
 export const DevicesScreen: React.FC = () => {
 
   // this will update state on completion
-  useEffect(() => {
-    ApiController.instance.getArduinos();
-  }, []);
+  // useEffect(() => {
+  //   ApiController.instance.getArduinos();
+  // }, []);
 
   const [ connectedDevices, setConnectedDevices ] = useState<Arduino[]>([])
   // get arduinos

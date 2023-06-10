@@ -2,21 +2,17 @@ import { useEffect, useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { ApiController } from '../../state/ApiController';
 import StateManager from '../../state/publishers/StateManager';
-import { RootStackParamList } from './CommandStack';
 import { RouteProp } from '@react-navigation/native';
 import { Command } from '../../model/core/Command';
 
-type AddCommandScreenRouteProp = RouteProp<RootStackParamList, 'Add Command'>;
 
-interface Props {
-    route: AddCommandScreenRouteProp;
-}
+export const DeviceScreen: React.FC = ({  }) => {
 
-export const AddCommandScreen: React.FC<Props> = ({ route }) => {
-
-    useEffect(() => {
-        ApiController.instance.getCommandsForArduino(route.params.arduino);
-    }, [])
+    // useEffect(() => {
+    //     ApiController.instance.getCommandsForArduino(route.params.arduino);
+    // }, [])
+    
+    // TODO: publish override title
     
     const [ commands, setCommands ] = useState<Command[]>([]);
 

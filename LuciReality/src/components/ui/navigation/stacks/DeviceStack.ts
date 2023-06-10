@@ -1,6 +1,7 @@
 import LuciScreen from "../../../core/navigation/LuciScreen";
 import LuciStack from "../../../core/navigation/LuciStack";
-import { DevicesScreen } from "../../Devices";
+import { DevicesScreen } from "../../DevicesScreen";
+import { DeviceScreen } from "../../DeviceScreen";
 
 export const DeviceStack = new LuciStack(
     "Connected Devices",
@@ -13,4 +14,11 @@ export const DeviceStack = new LuciStack(
         "DEVICES",
         DevicesScreen
     )
-);
+)
+.addScreen(
+    new LuciScreen(
+        "Device",
+        "DEVICE",
+        DeviceScreen
+    )
+)
