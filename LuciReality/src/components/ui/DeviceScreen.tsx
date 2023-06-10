@@ -89,7 +89,7 @@ interface DeviceProps {
 
 const DeviceAttatchments: React.FC<DeviceProps> = ({ device }) => {
 
-  if (device == null){
+  if (device == null || device.attatchments.length <= 0){
     return (
       <LuciContainer style={styles.emptyContainer}>
         <LuciText text={"No attatcments"} font={Typography.instance.body}/>
