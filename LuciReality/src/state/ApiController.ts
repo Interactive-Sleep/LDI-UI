@@ -1,4 +1,4 @@
-import { Device } from "../model/core/Arudino";
+import { Device } from "../model/core/Device";
 import { Command } from "../model/core/Command";
 import StateManager from "./publishers/StateManager";
 
@@ -9,7 +9,7 @@ export class ApiController {
 
     private constructor() {}
 
-    public getArduinos(){
+    public getDevices(){
         fetch(this.rootUrl + "/arduinos")
         .then(res => res.json())
         .then(json => {
@@ -23,9 +23,9 @@ export class ApiController {
 
     }
 
-    public getCommandsForArduino(arduino: Device){
-        console.log(arduino.uid)
-        fetch(this.rootUrl + `/commands/${arduino.uid}`)
+    public getCommandsForDevice(device: Device){
+        console.log(device.uid)
+        fetch(this.rootUrl + `/commands/${device.uid}`)
         .then(res => res.json())
         .then(json => {
             const commands: Command[] = json.commands;
@@ -38,7 +38,7 @@ export class ApiController {
      * 
      * @param updateUI must update UI
      */
-    public scheduleCommandForArduino(arduino: Device, updateUI: () => void){
+    public scheduleCommandForDevice(device: Device, updateUI: () => void){
         let options = {
             method: 'POST',
             headers: {
@@ -47,7 +47,7 @@ export class ApiController {
             body: JSON.stringify('')
         }
         
-        fetch(this.rootUrl + `/command/${arduino.uid}/VisualStimulus`, options)
+        fetch(this.rootUrl + `/command/${device.uid}/VisualStimulus`, options)
         .then(_ => updateUI())
         .catch(err => {
             console.error(err)
@@ -55,7 +55,7 @@ export class ApiController {
         });
     }
 
-    public deleteCommandFromArduino(){
+    public deleteCommandFromDevice(){
         // TODO
     }
 }

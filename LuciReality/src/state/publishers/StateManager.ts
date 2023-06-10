@@ -1,5 +1,5 @@
 import { ColourProvider } from "../../components/core/style/ColourProvider";
-import { Device } from "../../model/core/Arudino";
+import { Device } from "../../model/core/Device";
 import { Command } from "../../model/core/Command";
 import LuciPublisher from "./impl/LeafPublisher";
 import LuciValuePublisher from "./impl/LeafValuePublisher"
