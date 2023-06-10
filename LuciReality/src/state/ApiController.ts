@@ -24,7 +24,6 @@ export class ApiController {
     }
 
     public getCommandsForDevice(device: Device){
-        console.log(device.uid)
         fetch(this.rootUrl + `/commands/${device.uid}`)
         .then(res => res.json())
         .then(json => {

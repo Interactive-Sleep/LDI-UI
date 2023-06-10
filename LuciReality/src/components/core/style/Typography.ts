@@ -40,6 +40,17 @@ export class Typography {
         );
     }
 
+    public get cardSubTitle(){
+        return new Font(
+            new FontFormatting(
+                "bold"
+            ),
+            20,
+            new FontFamily(),
+            ColourProvider.instance.text
+        );
+    }
+
     public get body(){
         return new Font(
             new FontFormatting(

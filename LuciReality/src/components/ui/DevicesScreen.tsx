@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Attatchment } from '../../model/core/Attatchment';
 import { Device } from '../../model/core/Device';
 import { ApiController } from '../../state/ApiController';
 import StateManager from '../../state/publishers/StateManager';
@@ -43,9 +44,18 @@ interface DeviceComponentProps {
 
 const DeviceComponent: React.FC<DeviceComponentProps> = ({ device }) => {
   return (
-    <LuciFloatingCard>
-      <LuciText text={`Device ${device.uid}`} font={Typography.instance.cardTitle}/>
-    </LuciFloatingCard>
+    <View style={styles.deviceWrapper}>
+      <LuciFloatingCard>
+        <LuciText text={`Device ${device.uid}`} font={Typography.instance.cardTitle}/>
+        <LuciText text={"Attatchments"} font={Typography.instance.cardSubTitle}/>
+        {
+          device.attatchments.length <= 0 ?
+            <LuciText text={"None"} font={Typography.instance.body}/>
+            :
+            device.attatchments.map((attatchment: Attatchment) =>  <LuciText text={attatchment.name} font={Typography.instance.body}/>)
+        }
+      </LuciFloatingCard>
+    </View>
   )
 };
 
@@ -54,6 +64,9 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: BaseDimensions.instance.screenPadding,
     backgroundColor: ColourProvider.instance.background.getColour()
+  },
+  deviceWrapper: {
+    paddingVertical: BaseDimensions.instance.screenPadding
   },
   button: {
     position: 'absolute',

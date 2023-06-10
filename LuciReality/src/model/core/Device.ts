@@ -4,17 +4,17 @@ import { CommandSchedular } from "./CommandSchedular";
 export class Device {
 
     readonly uid: number;
-    private attatchments: Array<Attatchment>;
+    private avaliableAttatchments: Attatchment[];
     public readonly commandSchedular: CommandSchedular;
 
-    constructor(uid: number, attatchments: Array<Attatchment>){
+    constructor(uid: number, attatchments: Attatchment[]){
         this.uid = uid;
-        this.attatchments = attatchments;
+        this.avaliableAttatchments = attatchments;
         this.commandSchedular = new CommandSchedular(attatchments);
     }
 
-    public getAttatchments(): Attatchment[] {
-        const tmpAttatchments = this.attatchments;
+    public get attatchments(): Attatchment[] {
+        const tmpAttatchments = this.avaliableAttatchments;
         return tmpAttatchments;
     }
 
