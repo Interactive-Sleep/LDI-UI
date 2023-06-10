@@ -5,6 +5,10 @@ import StateManager from '../../state/publishers/StateManager';
 import { Command } from '../../model/core/Command';
 import { DevicesNavigationProp } from './navigation/Params';
 import { Device } from '../../model/core/Device';
+import { ColourProvider } from '../core/style/ColourProvider';
+import { BaseDimensions } from '../core/style/BaseDimensions';
+import { LuciText } from '../core/custom/views/lucitext/LuciText';
+import { Typography } from '../core/style/Typography';
 
 interface Props {
   navigation: DevicesNavigationProp;
@@ -29,22 +33,19 @@ export const DeviceScreen: React.FC<Props> = ({ navigation }) => {
     }, [navigation]);
 
     return (
-        <SafeAreaView style={styles.container}>
-
-        </SafeAreaView>
+        <View style={styles.container}>
+          <ScrollView style={{ flex: 1 }}>
+            <LuciText text={"Attatchments"} font={Typography.instance.subTitle}/>
+          </ScrollView>
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: '#fff',
-    },
-    scrollview: {
-      flex: 1,
-      width: '90%', // this was being so dumb, this is just a prototype so i dont really care but still
+      backgroundColor: ColourProvider.instance.background.getColour(),
+      padding: BaseDimensions.instance.screenPadding
     },
     button: {
       position: 'absolute',
