@@ -35,19 +35,21 @@ export const CommandHubScreen: React.FC<Props> = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <ScrollView style={styles.scrollView}>
-                <LuciContainer style={styles.graphContainer}>
-                    <LuciText text={"EOG graph"} font={Typography.instance.subTitle}/>
-                    <View style={styles.graphTextWrapper}>
-                        <LuciText text={"No data"} font={Typography.instance.body} style={styles.graphText}/>
-                    </View>
-                </LuciContainer>
+                <LuciText text={"EOG graph"} font={Typography.instance.subTitle}/>
+                <View style={{ paddingVertical: BaseDimensions.instance.screenSpacing }}>
+                    <LuciContainer style={styles.graphContainer}>
+                        <View style={styles.graphTextWrapper}>
+                            <LuciText text={"No data"} font={Typography.instance.body} style={styles.graphText}/>
+                        </View>
+                    </LuciContainer>
+                </View>
 
                 <LuciText text={"Commands for"} font={Typography.instance.subTitle}/>
                 <Devices devices={devices}/>
             </ScrollView>
 
             <View style={styles.buttonContainer}>
-                <LuciButton label={"Refresh"} onPress={() => null}/>
+                <LuciButton label={"Refresh"} onPress={() => ApiController.instance.getDevices()}/>
             </View>
 
         </View>
@@ -73,7 +75,7 @@ const Devices: React.FC<DevicesProps> = ({ devices }) => {
             {
                 devices.map((device: Device) => {
                     return (
-                        <View style={{ flex: 1 }} key={UUID.generate().toString()}>
+                        <View style={{ flex: 1, paddingVertical: BaseDimensions.instance.screenSpacing }} key={UUID.generate().toString()}>
                             <LuciText text={`Device ${device.uid}`} font={Typography.instance.cardTitle} key={UUID.generate().toString()}/>
                             {
                                 device.commandSchedular.scheduledCommands.length <= 0 ?

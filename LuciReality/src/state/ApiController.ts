@@ -19,10 +19,6 @@ export class ApiController {
         .catch(err => console.error(err))
     }
 
-    public getArduino(){
-
-    }
-
     public getCommandsForDevice(device: Device){
         fetch(this.rootUrl + `/commands/${device.uid}`)
         .then(res => res.json())
