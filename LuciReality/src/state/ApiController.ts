@@ -68,9 +68,8 @@ export class ApiController {
                 })
             }
 
-            console.log(streamForState);
-
             StateManager.eogStream.publish(streamForState);
         })
+        .catch(err => console.error(err))
     }
 }

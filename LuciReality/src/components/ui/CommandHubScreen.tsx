@@ -38,20 +38,20 @@ export const CommandHubScreen: React.FC<Props> = ({ navigation }) => {
     StateManager.eogStream.subscribe(() => {
         setEogStream(StateManager.eogStream.read())
     });
-    
-    // refresh graph every second
-    const refreshGraph = async () => {
-        while(true){
-            await new Promise(resolve => setTimeout(resolve, 3000));
-            ApiController.instance.getEogData(1);    
-        }
-    } 
-    refreshGraph();
 
     const convertNumArrToStrArr = (numbers: number[]): string[] => {
         const strings: string[] = [];
+        let divisions = Math.round(numbers.length/10);
+        let count = 0;
+
         for (let number of numbers){
-            strings.push("");
+            if (count == divisions){
+                strings.push(number.toString());
+                count = 0;
+            }else{
+                strings.push("");
+            }
+            count += 1;
         }
 
         return strings;
@@ -80,28 +80,21 @@ export const CommandHubScreen: React.FC<Props> = ({ navigation }) => {
             <ScrollView style={styles.scrollView}>
                 <LuciText text={"EOG graph"} font={Typography.instance.subTitle}/>
                 <View style={{ paddingVertical: BaseDimensions.instance.screenSpacing }}>
-                    <LuciContainer
-                        style={{
-                            height: Environment.instance.getScreenHeight()/2.5,
-                            justifyContent: "center"
+                    <LuciGraph
+                        lineData={{
+                            labels: convertNumArrToStrArr(getTimes(eogStream)),
+                            datasets: [
+                                {
+                                    data: getVoltages(eogStream),
+                                    strokeWidth: 2
+                                }
+                            ]
                         }}
-                    >
-                        <LuciGraph
-                            lineData={{
-                                labels: convertNumArrToStrArr(getTimes(eogStream)),
-                                datasets: [
-                                    {
-                                        data: getVoltages(eogStream),
-                                        strokeWidth: 2
-                                    }
-                                ]
-                            }}
-                            style={{
-                                alignSelf: "center",
-                                borderRadius: BaseDimensions.instance.cardBorderRadius
-                            }}
-                        />
-                    </LuciContainer>
+                        style={{
+                            alignSelf: "center",
+                            borderRadius: BaseDimensions.instance.cardBorderRadius
+                        }}
+                    />
                     {/* <LuciContainer style={styles.graphContainer}>
                         <View style={styles.graphTextWrapper}>
                             <LuciText text={"No data"} font={Typography.instance.body} style={styles.graphText}/>
