@@ -10,11 +10,11 @@ export class ApiController {
     private constructor() {}
 
     public getDevices(){
-        fetch(this.rootUrl + "/arduinos")
+        fetch(this.rootUrl + "/devices")
         .then(res => res.json())
         .then(json => {
-            const arduinos: Device[] = json.arduinos;
-            StateManager.devices.publish(arduinos)
+            const devices: Device[] = json.devices;
+            StateManager.devices.publish(devices)
         })
         .catch(err => console.error(err))
     }
@@ -49,9 +49,5 @@ export class ApiController {
         });
 
         updateUI();
-    }
-
-    public deleteCommandFromDevice(){
-        // TODO
     }
 }
