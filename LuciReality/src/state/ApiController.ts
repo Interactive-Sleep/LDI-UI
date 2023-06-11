@@ -1,6 +1,8 @@
 import { Device } from "../model/core/Device";
 import { Command } from "../model/core/Command";
 import StateManager from "./publishers/StateManager";
+import { EogDataType } from "../model/eog/Types";
+import { EogData } from "../model/eog/EogData";
 
 export class ApiController {
     
@@ -49,5 +51,26 @@ export class ApiController {
         });
 
         updateUI();
+    }
+
+    public getEogData(streamId: number){
+        fetch(this.rootUrl + `/eog/${streamId}`)
+        .then(res => res.json())
+        .then(json => {
+            console.log(json.stream)
+            const stream: EogData[] = json.stream;
+            // we have to extract to a type, this is becuase class serialise without the getters and this causes issues
+            const streamForState: EogDataType[] = [];
+
+            for (let data of stream){
+                streamForState.push({
+                    voltage: data.microVoltage,
+                    time: data.timeSeconds
+                })
+            }
+
+            console.log(streamForState);
+            StateManager.eogStream.publish(streamForState);
+        })
     }
 }

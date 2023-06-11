@@ -14,6 +14,7 @@ import { Command } from "../../model/core/Command";
 import { ApiController } from "../../state/ApiController";
 import UUID from "../../model/util/UUID";
 import { LuciButton } from "../core/custom/views/lucibutton/LuciButton";
+import { LuciGraph } from "../core/custom/views/lucigraph/LuciGraph";
 
 interface Props {
     navigation: CommandHubNavigationProp;
@@ -23,6 +24,7 @@ export const CommandHubScreen: React.FC<Props> = ({ navigation }) => {
 
     useEffect(() => {
         ApiController.instance.getDevices();
+        ApiController.instance.getEogData(1);
     }, []);
 
     const [devices, setDevices] = useState<Device[] | null>(null);
@@ -36,11 +38,34 @@ export const CommandHubScreen: React.FC<Props> = ({ navigation }) => {
             <ScrollView style={styles.scrollView}>
                 <LuciText text={"EOG graph"} font={Typography.instance.subTitle}/>
                 <View style={{ paddingVertical: BaseDimensions.instance.screenSpacing }}>
-                    <LuciContainer style={styles.graphContainer}>
+                    <LuciContainer
+                        style={{
+                            height: Environment.instance.getScreenHeight()/2.5,
+                            justifyContent: "center"
+                        }}
+                    >
+                        <LuciGraph
+                            lineData={{
+                                labels: ["1", "2", "3", "4", "5"],
+                                datasets: [
+                                    {
+                                        data: [1, 2, 1, 3, 4],
+                                        strokeWidth: 2
+                                    }
+                                ]
+                            }}
+                            xAxisLabel={"s"}
+                            style={{
+                                alignSelf: "center",
+                                borderRadius: BaseDimensions.instance.cardBorderRadius
+                            }}
+                        />
+                    </LuciContainer>
+                    {/* <LuciContainer style={styles.graphContainer}>
                         <View style={styles.graphTextWrapper}>
                             <LuciText text={"No data"} font={Typography.instance.body} style={styles.graphText}/>
                         </View>
-                    </LuciContainer>
+                    </LuciContainer> */}
                 </View>
 
                 <LuciText text={"Commands for"} font={Typography.instance.subTitle}/>

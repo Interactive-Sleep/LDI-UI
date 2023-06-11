@@ -3,6 +3,7 @@ import { Device } from "../../model/core/Device";
 import { Command } from "../../model/core/Command";
 import LuciPublisher from "./impl/LeafPublisher";
 import LuciValuePublisher from "./impl/LeafValuePublisher"
+import { EogDataType } from "../../model/eog/Types";
 
 /**
  * Stores application-level state to avoid having to pass state to different components, and reduces component coupling. Uses the publisher-subscriber pattern.
@@ -51,6 +52,8 @@ class StateManager {
     public static readonly devices = new LuciValuePublisher<Device[]>([]);
 
     public static readonly commands = new LuciValuePublisher<Command[]>([]);
+
+    public static readonly eogStream = new LuciValuePublisher<EogDataType[]>([]);
 }
 
 export default StateManager;

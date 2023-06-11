@@ -2,7 +2,7 @@ import React from "react";
 import { LineChart } from "react-native-chart-kit";
 import { ViewStyle } from "react-native/types";
 import { Environment } from "../../../../../state/environment/Environment";
-import { BaseDimensions } from "../../../style/BaseDimensions";
+import { LuciScreenOrientation } from "../../../../../state/environment/types/LuciScreenOrientation";
 import { ColourProvider } from "../../../style/ColourProvider";
 
 interface Props {
@@ -13,8 +13,8 @@ interface Props {
             strokeWidth: number
         }]
     },
-    yAxisLabel: string,
     xAxisLabel: string
+    yAxisLabel?: string,
     width?: number,
     height?: number,
     style?: ViewStyle
@@ -22,10 +22,10 @@ interface Props {
 
 export const LuciGraph: React.FC<Props> = ({ 
     lineData,
-    yAxisLabel,
     xAxisLabel,
-    width = Environment.instance.getScreenWidth(), 
-    height = 300,
+    yAxisLabel = "",
+    width = Environment.instance.getScreenOrientation() == LuciScreenOrientation.Landscape ? Environment.instance.getScreenWidth()/1.3 : Environment.instance.getScreenWidth(), 
+    height = Environment.instance.getScreenHeight()/3,
     style 
 }) => {
     return (
@@ -36,17 +36,13 @@ export const LuciGraph: React.FC<Props> = ({
             yAxisLabel={yAxisLabel}
             xAxisLabel={xAxisLabel}
             chartConfig={{
-                backgroundColor: ColourProvider.instance.accent.getColour(),
+                backgroundColor: ColourProvider.instance.cardBackground.getColour(),
+                backgroundGradientFrom: ColourProvider.instance.cardBackground.getColour(),
+                backgroundGradientTo: ColourProvider.instance.cardBackground.getColour(),
                 decimalPlaces: 2, // optional, defaults to 2dp
                 color: (opacity = 1) => ColourProvider.instance.secondaryButton.getColour(),
-                style: {
-                  borderRadius: 15
-                }
             }}
-            style={[
-                { borderRadius: 10},
-                style
-            ]}
+            style={style}
         />
     )
 }
