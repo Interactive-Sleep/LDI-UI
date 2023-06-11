@@ -30,14 +30,23 @@ export const CommandHubScreen: React.FC<Props> = ({ navigation }) => {
 
     const [devices, setDevices] = useState<Device[] | null>(null);
     const [eogStream, setEogStream] = useState<EogDataType[]>([]);
-
+    
     StateManager.devices.subscribe(() => {
         setDevices(StateManager.devices.read())
     });
-
+    
     StateManager.eogStream.subscribe(() => {
         setEogStream(StateManager.eogStream.read())
     });
+    
+    // refresh graph every second
+    const refreshGraph = async () => {
+        while(true){
+            await new Promise(resolve => setTimeout(resolve, 3000));
+            ApiController.instance.getEogData(1);    
+        }
+    } 
+    refreshGraph();
 
     const convertNumArrToStrArr = (numbers: number[]): string[] => {
         const strings: string[] = [];
