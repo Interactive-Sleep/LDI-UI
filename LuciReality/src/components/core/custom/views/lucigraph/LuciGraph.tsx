@@ -13,7 +13,7 @@ interface Props {
             strokeWidth: number
         }]
     },
-    xAxisLabel: string
+    xAxisLabel?: string
     yAxisLabel?: string,
     width?: number,
     height?: number,
@@ -22,7 +22,7 @@ interface Props {
 
 export const LuciGraph: React.FC<Props> = ({ 
     lineData,
-    xAxisLabel,
+    xAxisLabel="",
     yAxisLabel = "",
     width = Environment.instance.getScreenOrientation() == LuciScreenOrientation.Landscape ? Environment.instance.getScreenWidth()/1.3 : Environment.instance.getScreenWidth(), 
     height = Environment.instance.getScreenHeight()/3,

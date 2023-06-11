@@ -57,19 +57,19 @@ export class ApiController {
         fetch(this.rootUrl + `/eog/${streamId}`)
         .then(res => res.json())
         .then(json => {
-            console.log(json.stream)
-            const stream: EogData[] = json.stream;
+            const stream: EogDataType[] = json.stream;
             // we have to extract to a type, this is becuase class serialise without the getters and this causes issues
             const streamForState: EogDataType[] = [];
 
             for (let data of stream){
                 streamForState.push({
-                    voltage: data.microVoltage,
-                    time: data.timeSeconds
+                    voltage: data.voltage,
+                    time: data.time
                 })
             }
 
             console.log(streamForState);
+
             StateManager.eogStream.publish(streamForState);
         })
     }

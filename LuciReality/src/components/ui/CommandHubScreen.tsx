@@ -15,6 +15,7 @@ import { ApiController } from "../../state/ApiController";
 import UUID from "../../model/util/UUID";
 import { LuciButton } from "../core/custom/views/lucibutton/LuciButton";
 import { LuciGraph } from "../core/custom/views/lucigraph/LuciGraph";
+import { EogDataType } from "../../model/eog/Types";
 
 interface Props {
     navigation: CommandHubNavigationProp;
@@ -28,10 +29,42 @@ export const CommandHubScreen: React.FC<Props> = ({ navigation }) => {
     }, []);
 
     const [devices, setDevices] = useState<Device[] | null>(null);
+    const [eogStream, setEogStream] = useState<EogDataType[]>([]);
 
     StateManager.devices.subscribe(() => {
         setDevices(StateManager.devices.read())
     });
+
+    StateManager.eogStream.subscribe(() => {
+        setEogStream(StateManager.eogStream.read())
+    });
+
+    const convertNumArrToStrArr = (numbers: number[]): string[] => {
+        const strings: string[] = [];
+        for (let number of numbers){
+            strings.push("");
+        }
+
+        return strings;
+    }
+
+    const getVoltages = (eogData: EogDataType[]): number[] => {
+        const voltages: number[] = [];
+        for (let data of eogData){
+            voltages.push(data.voltage || 0);
+        }
+
+        return voltages;
+    }
+
+    const getTimes = (eogData: EogDataType[]): number[] => {
+        const times: number[] = [];
+        for (let data of eogData){
+            times.push(data.time);
+        }
+
+        return times;
+    }
 
     return (
         <View style={styles.container}>
@@ -46,15 +79,14 @@ export const CommandHubScreen: React.FC<Props> = ({ navigation }) => {
                     >
                         <LuciGraph
                             lineData={{
-                                labels: ["1", "2", "3", "4", "5"],
+                                labels: convertNumArrToStrArr(getTimes(eogStream)),
                                 datasets: [
                                     {
-                                        data: [1, 2, 1, 3, 4],
+                                        data: getVoltages(eogStream),
                                         strokeWidth: 2
                                     }
                                 ]
                             }}
-                            xAxisLabel={"s"}
                             style={{
                                 alignSelf: "center",
                                 borderRadius: BaseDimensions.instance.cardBorderRadius
@@ -73,7 +105,11 @@ export const CommandHubScreen: React.FC<Props> = ({ navigation }) => {
             </ScrollView>
 
             <View style={styles.buttonContainer}>
-                <LuciButton label={"Refresh"} onPress={() => ApiController.instance.getDevices()}/>
+                <LuciButton label={"Refresh"} onPress={() => {
+                        ApiController.instance.getDevices();
+                        ApiController.instance.getEogData(1);
+                    }}
+                />
             </View>
 
         </View>
