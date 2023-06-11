@@ -46,7 +46,7 @@ export const CommandHubScreen: React.FC<Props> = ({ navigation }) => {
 
         for (let number of numbers){
             if (count == divisions){
-                strings.push(number.toString());
+                strings.push(`${number}s`);
                 count = 0;
             }else{
                 strings.push("");
@@ -80,26 +80,31 @@ export const CommandHubScreen: React.FC<Props> = ({ navigation }) => {
             <ScrollView style={styles.scrollView}>
                 <LuciText text={"EOG graph"} font={Typography.instance.subTitle}/>
                 <View style={{ paddingVertical: BaseDimensions.instance.screenSpacing }}>
-                    <LuciGraph
-                        lineData={{
-                            labels: convertNumArrToStrArr(getTimes(eogStream)),
-                            datasets: [
-                                {
-                                    data: getVoltages(eogStream),
-                                    strokeWidth: 2
-                                }
-                            ]
-                        }}
-                        style={{
-                            alignSelf: "center",
-                            borderRadius: BaseDimensions.instance.cardBorderRadius
-                        }}
-                    />
-                    {/* <LuciContainer style={styles.graphContainer}>
-                        <View style={styles.graphTextWrapper}>
-                            <LuciText text={"No data"} font={Typography.instance.body} style={styles.graphText}/>
-                        </View>
-                    </LuciContainer> */}
+                    {
+                        eogStream.length > 0 ?
+                            <LuciGraph
+                                lineData={{
+                                    labels: convertNumArrToStrArr(getTimes(eogStream)),
+                                    datasets: [
+                                        {
+                                            data: getVoltages(eogStream),
+                                            strokeWidth: 2
+                                        }
+                                    ]
+                                }}
+                                style={{
+                                    alignSelf: "center",
+                                    borderRadius: BaseDimensions.instance.cardBorderRadius
+                                }}
+                            />
+                            :
+                            <LuciContainer style={styles.graphContainer}>
+                                <View style={styles.graphTextWrapper}>
+                                    <LuciText text={"No data"} font={Typography.instance.body} style={styles.graphText}/>
+                                </View>
+                            </LuciContainer>
+                    }
+                
                 </View>
 
                 <LuciText text={"Commands for"} font={Typography.instance.subTitle}/>

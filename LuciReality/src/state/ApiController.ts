@@ -68,6 +68,10 @@ export class ApiController {
                 })
             }
 
+            while (streamForState.length > 500){
+                streamForState.shift();
+            }
+
             StateManager.eogStream.publish(streamForState);
         })
         .catch(err => console.error(err))
