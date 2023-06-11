@@ -9,22 +9,22 @@ export class DeviceManager {
     private constructor(){}
 
     public getDevices(): Device[]{
-        const tmpArduinos = this.devices;
-        return tmpArduinos;
+        const tmpdevices = this.devices;
+        return tmpdevices;
     }
 
     /**
      * You will have to unwrap the optional
-     * @param id the arduino id you want to get
-     * @returns the arduino with correct id or undefined
+     * @param id the device id you want to get
+     * @returns the device with correct id or undefined
      */
     public getDevice(id: number): Device | undefined {
         return this.devices.filter(a => a.uid == id)[0]
     }
 
     /**
-     * Will only add the arduino if it does not already exist
-     * @param device the arduino you want to add
+     * Will only add the device if it does not already exist
+     * @param device the device you want to add
      * @returns true if added, otherwise, false
      */
     public addDevice(device: Device): boolean {
@@ -38,8 +38,8 @@ export class DeviceManager {
     }
 
     /**
-     * Gets the next command for an arduino 
-     * @param id the id of the arduino
+     * Gets the next command for an device 
+     * @param id the id of the device
      * @returns the next command
      */
     public getNextCommandForDevice(id: number): Command | undefined {
@@ -51,8 +51,8 @@ export class DeviceManager {
     }
 
     /**
-     * Adds a command to an arduino
-     * @param id the id of the arduino you want to add a command to
+     * Adds a command to an device
+     * @param id the id of the device you want to add a command to
      * @param command the command you want to add
      * @returns true if add, otherwise, false
      */
