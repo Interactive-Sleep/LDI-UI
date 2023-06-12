@@ -38,7 +38,9 @@ export const DeviceScreen: React.FC<Props> = ({ navigation }) => {
     const addCommand = (device: Device | null, command: Command) => {
       if (device != null){
         ApiController.instance.scheduleCommandForDevice(device, command, () => {
-          ApiController.instance.getCommandsForDevice(device);
+          const tmp = [...commands];
+          tmp.push(command);
+          setCommands(tmp);
         });
       }
     }
@@ -76,7 +78,7 @@ export const DeviceScreen: React.FC<Props> = ({ navigation }) => {
               <LuciButton label={Environment.instance.getScreenType() == ScreenType.large ? "Add command" : "Add"} onPress={() => addCommand(selectedDevice, new VisualStimulusCommand())}/>
             </View>
             <View style={styles.buttonContainer}>
-              <LuciButton label={"Disconnect"} onPress={() => null} colour={ColourProvider.instance.secondaryButton}/>
+              <LuciButton label={"Refresh"} onPress={() => ApiController.instance.getCommandsForDevice(selectedDevice)} colour={ColourProvider.instance.secondaryButton}/>
             </View>
           </LuciHStack>
         </View>
@@ -134,7 +136,7 @@ const DeviceCommands: React.FC<CommandProps> = ({ commands }) => {
           return (
             <View style={styles.verticalPaddedView} key={UUID.generate().toString()}>
               <LuciContainer>
-                <LuciText key={UUID.generate().toString()} text={`${index+1}: ${command.name}`} font={Typography.instance.cardTitle}/>
+                <LuciText key={UUID.generate().toString()} text={command.name} font={Typography.instance.cardTitle}/>
               </LuciContainer>
             </View>
           )

@@ -21,14 +21,16 @@ export class ApiController {
         .catch(err => console.error(err))
     }
 
-    public getCommandsForDevice(device: Device){
-        fetch(this.rootUrl + `/commands/${device.uid}`)
-        .then(res => res.json())
-        .then(json => {
-            const commands: Command[] = json.commands;
-            StateManager.commands.publish(commands);
-        })
-        .catch(err => console.error(err))
+    public getCommandsForDevice(device: Device | null){
+        if (device != null){
+            fetch(this.rootUrl + `/commands/${device.uid}`)
+            .then(res => res.json())
+            .then(json => {
+                const commands: Command[] = json.commands;
+                StateManager.commands.publish(commands);
+            })
+            .catch(err => console.error(err))
+        }
     }
 
     /**
@@ -45,10 +47,14 @@ export class ApiController {
         }
         
         fetch(this.rootUrl + `/command/${device.uid}/${command.name}`, options)
-        .catch(err => {
-            console.error(err)
-            return false
-        });
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Server response: ${response.status}`);
+            }
+            // Only update UI when the request is successful
+            updateUI();
+        })
+        .catch(err => console.error(err));
 
         updateUI();
     }
