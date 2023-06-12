@@ -1,3 +1,3 @@
 export type SoundNames = 
     "alpha" |
-    "beta"
+    "delta" 

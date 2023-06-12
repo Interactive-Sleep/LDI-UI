@@ -4,12 +4,17 @@ import { SoundNames } from "./SoundNames";
 export class PlaySoundInst extends Instruction {
     
     private soundName: SoundNames;
+    private durationMilliSeconds: number;
 
-    constructor(soundName: SoundNames){
+    constructor(soundName: SoundNames, durationMilliSeconds: number){
         super(
             3,
-            {soundName: soundName}
+            {
+                soundName: soundName,
+                durationMilliSeconds: durationMilliSeconds
+            }
         );
         this.soundName = soundName;
+        this.durationMilliSeconds = durationMilliSeconds;
     }
 }

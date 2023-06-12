@@ -8,15 +8,11 @@ import { COMMAND_DURATION_MILLIS, COMMAND_NAMES } from "./CommandTypes";
 export class AudioStimulusCommand extends Command {
 
     public constructor(){
-        const playSound = new PlaySoundInst("alpha");
-        const stopSound = new StopSoundInst();
-        const wait = new WaitInst({
-            time: COMMAND_DURATION_MILLIS
-        });
+        const playSound = new PlaySoundInst("delta", COMMAND_DURATION_MILLIS);
 
         super(
             COMMAND_NAMES.AUDIO_STIMULUS, 
-            [playSound, wait, stopSound], 
+            [playSound], 
             [
                 new Attatchment(
                     1,
