@@ -1,5 +1,6 @@
 import { Attatchment } from "./Attatchment";
 import { Command } from "./Command";
+import { Device } from "./Device";
 
 export class CommandSchedular {
 
@@ -91,5 +92,31 @@ export class CommandSchedular {
      */
     public removeAllInstancesOfCommand(command: Command){
         this.scheduledCommands = this.scheduledCommands.filter(c => c.name != command.name)
+    }
+
+    public static checkIfDeviceCanExecute(command: Command, device: Device): boolean{
+
+        // basically check device has required attatchments, if it is missing any then return false
+
+        for (let i=0; i<command.getRequiredAttatchments().length; i++){
+            const requiredAttatchment = command.getRequiredAttatchments()[i];
+            let deviceHasAttatchment = false;
+
+            for (let j=0; j<device.attatchments.length; j++){
+                const deviceAttatchment = device.attatchments[j];
+
+                if (requiredAttatchment.id == deviceAttatchment.id){
+                    deviceHasAttatchment = true;
+                }
+            }
+
+            // if we check all device attatchments and not one of them equals the required attatchment
+            // then we return false
+            if (!deviceHasAttatchment){
+                return false;
+            }
+        }
+
+        return true;
     }
 }

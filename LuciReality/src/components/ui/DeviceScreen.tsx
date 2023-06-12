@@ -17,6 +17,7 @@ import { LuciButton } from '../core/custom/views/lucibutton/LuciButton';
 import { Environment } from '../../state/environment/Environment';
 import { ScreenType } from '../../state/environment/types/ScreenType';
 import { VisualStimulusCommand } from '../../model/commands/VisualStimulusCommand';
+import { AddCommandModal } from './AddCommandModal';
 
 interface Props {
   navigation: DevicesNavigationProp;
@@ -45,6 +46,7 @@ export const DeviceScreen: React.FC<Props> = ({ navigation }) => {
       }
     }
 
+    const [showModal, setShowModal] = useState(false);
     const [selectedDevice, setSelectedDevice] = useState<Device | null>(StateManager.selectedDevice.read());
     const [commands, setCommands] = useState<Command[]>(StateManager.commands.read());
 
@@ -72,15 +74,19 @@ export const DeviceScreen: React.FC<Props> = ({ navigation }) => {
 
           <LuciHStack>
             <View style={styles.buttonContainer}>
-              {/* 
-                // TODO: we need a modal here that lets you select the correct command
-              */}
-              <LuciButton label={Environment.instance.getScreenType() == ScreenType.large ? "Add command" : "Add"} onPress={() => addCommand(selectedDevice, new VisualStimulusCommand())}/>
+              <LuciButton label={Environment.instance.getScreenType() == ScreenType.large ? "Add command" : "Add"} onPress={() => setShowModal(true)}/>
             </View>
             <View style={styles.buttonContainer}>
               <LuciButton label={"Refresh"} onPress={() => ApiController.instance.getCommandsForDevice(selectedDevice)} colour={ColourProvider.instance.secondaryButton}/>
             </View>
           </LuciHStack>
+
+          <AddCommandModal 
+            showModal={showModal}
+            setShowModal={setShowModal}
+            commands={commands}
+            setCommands={setCommands}
+          />
         </View>
     )
 }

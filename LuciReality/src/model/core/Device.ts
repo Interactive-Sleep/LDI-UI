@@ -21,4 +21,5 @@ export class Device {
     public addAttatchment(attatchment: Attatchment) {
         this.commandSchedular.addAttachment(attatchment);
     }
+
 }

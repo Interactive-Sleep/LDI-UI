@@ -20,4 +20,9 @@ export abstract class Command {
         return tmpInstructions;
     }
 
+    public getRequiredAttatchments(): Attatchment[]{
+        const tmpAttatchments = this.requiredAttatchments;
+        return tmpAttatchments;
+    }
+
 }

@@ -1,8 +1,8 @@
 import { Command } from "../core/Command";
 import { Attatchment } from "../core/Attatchment";
-import { PlaySoundInst } from "../Instructions/sound/PlaySoundInst";
-import { StopSoundInst } from "../Instructions/sound/StopSoundInst";
-import { WaitInst } from "../Instructions/WaitInst";
+import { PlaySoundInst } from "../instructions/sound/PlaySoundInst";
+import { StopSoundInst } from "../instructions/sound/StopSoundInst";
+import { WaitInst } from "../instructions/WaitInst";
 import { COMMAND_DURATION_MILLIS, COMMAND_NAMES } from "./CommandTypes";
 
 export class AudioStimulusCommand extends Command {
