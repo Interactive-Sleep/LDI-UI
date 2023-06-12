@@ -62,7 +62,7 @@ export const DeviceScreen: React.FC<Props> = ({ navigation }) => {
     return (
         <View style={styles.container}>
           <ScrollView style={{ flex: 1 }}>
-            <LuciText text={"Attatchments"} font={Typography.instance.subTitle}/>
+            <LuciText text={"Attachments"} font={Typography.instance.subTitle}/>
 
             <View style={styles.verticalPaddedView}>
               <DeviceAttatchments device={selectedDevice}/>

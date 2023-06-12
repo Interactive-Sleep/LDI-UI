@@ -89,6 +89,7 @@ export const AddCommandModal: React.FC<Props> = ({
                                 key={UUID.generate().toString()}
                             >
                                 <LuciFloatingCard
+                                    disabled={!CommandSchedular.checkIfDeviceCanExecute(command, selectedDevice)}
                                     style={{
                                         opacity: CommandSchedular.checkIfDeviceCanExecute(command, selectedDevice) ? 1 : 0.5
                                     }}

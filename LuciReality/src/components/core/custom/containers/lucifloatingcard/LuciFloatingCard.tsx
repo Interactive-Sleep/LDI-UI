@@ -6,6 +6,7 @@ import { Colour } from "../../../style/colour/Colour";
 import { ColourProvider } from "../../../style/ColourProvider";
 
 interface Props {
+    disabled?: boolean;
     onPress?: () => void;
     colour?: Colour;
     style?: ViewStyle;
@@ -13,6 +14,7 @@ interface Props {
 };
 
 export const LuciFloatingCard: React.FC<Props> = ({ 
+    disabled = false,
     onPress = () => null,
     colour = ColourProvider.instance.cardBackground, 
     style,
@@ -20,6 +22,7 @@ export const LuciFloatingCard: React.FC<Props> = ({
 }) => {
     return (
         <TouchableOpacity
+            disabled={disabled}
             onPress={onPress}
             style={[
                 styles.container,
